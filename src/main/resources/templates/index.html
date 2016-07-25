@@ -5,9 +5,22 @@
     <meta name ="ctx" th:content="${#httpServletRequest.getContextPath()}" />
     <meta name="viewport" content="width=device-width" />
 
-    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/main.css}"/>
+
+    <script th:src="@{/static/js/jquery/jquery.min.js}"/>
+    <script th:src="@{/static/js/bootstrap/bootstrap.min.js}"/>
+
+    <script th:src="@{/static/js/main.js}"/>
+
+    <script th:inline="javascript">
+        var contextRoot = /*[[@{/}]]*/ '';
+        console.log(contextRoot);
+    </script>
+
+    <title>Public Data Management Dashboard</title>
 </head>
 <body>
-    Template.... (ing) About111aaa
+    Template.... (ing) About
 </body>
 </html>
