@@ -21,6 +21,46 @@
     <title>Public Data Management Dashboard</title>
 </head>
 <body>
-    Template.... (ing) About
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"><span>Public Data</span> Management Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+        <ul class="nav menu">
+            <li class="active">
+                <a href="index.html">
+                    <!--<svg>                        </svg>-->
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="management.html">
+                    <!--<svg>   </svg>-->
+                    Management
+                </a>
+            </li>
+            <li class="parent">
+                <a href="#">
+                    <span data-toggle="collapse" href="#sub-item-1">
+                        <svg class="icon chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg>
+                        Visualization
+                    </span>
+                </a>
+                <ul class="children collapse" id="sub-item-1">
+                    <li>
+                        <a href="original.html">
+                            <!--<svg>   </svg>-->
+                            Original
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
 </body>
 </html>
