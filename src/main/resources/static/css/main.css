@@ -1,3 +1,7 @@
+
+body {
+    padding-top: 50px;
+}
 .navbar-header .navbar-brand {
     color : #ffffff;
     font-size : 16px;
@@ -10,10 +14,34 @@
     color : #30a5ff;
 }
 
+.sidebar {
+    display : block;
+    background-color: #FFFFFF;
+    padding : 0;
+    position:fixed;
+    width: 200px;
+    height: 100%;
+    font-size: 18px;
+    box-shadow: 1px 0px 10px rgba(0, 0, 0, .5);
+}
+
+.sidebar .brand{
+    line-height : 120px;
+    display : block;
+    text-align: center;
+    font-size: 14px;
+    padding-bottom: 20px;
+}
 
 .sidebar .icon {
-    height : 16px;
-    width: 16px;
-    margin : 0 10px 0 0;
+    height : 20px;
+    width: 20px;
+    margin : 0px 10px 0px 0px;
     storke-width: 3px;
+}
+.sidebar .children{
+    list-style : none;
+}
+.sidebar ul.nav li.parent ul li a:hover{
+    text-decoration: none;
 }

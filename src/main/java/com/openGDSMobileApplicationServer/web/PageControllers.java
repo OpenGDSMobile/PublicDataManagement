@@ -15,4 +15,10 @@ public class PageControllers {
     String index() {
         return "index";
     }
+
+    @RequestMapping(value="/original")
+    String original() {return "original"; }
+
+    @RequestMapping(value="/management")
+    String management() {return "management"; }
 }
