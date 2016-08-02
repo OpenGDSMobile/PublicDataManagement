@@ -21,4 +21,9 @@ public class PageControllers {
 
     @RequestMapping(value="/management")
     String management() {return "management"; }
+
+    @RequestMapping(value="/map")
+    String map() {return "map"; }
+
+
 }

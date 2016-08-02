@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name ="ctx" th:content="${#httpServletRequest.getContextPath()}" />
+    <meta name="viewport" content="width=device-width" />
+
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/main.css}"/>
+
+    <script th:src="@{/static/js/jquery/jquery.min.js}"/>
+    <script th:src="@{/static/js/bootstrap/bootstrap.min.js}"/>
+
+    <script th:src="@{/static/js/main.js}"/>
+
+    <script th:inline="javascript">
+        var contextRoot = /*[[@{/}]]*/ '';
+        console.log(contextRoot);
+    </script>
+
+    <title>Public Data Management Dashboard</title>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#siderbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><span>Public Data</span> Management Dashboard</a>
+        </div>
+    </div>
+</nav>
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+    <div class="brand"><img th:src="@{/static/images/logo_hansung.png}" width="120px"/></div>
+    <ul class="nav menu">
+        <li class="active">
+            <a th:href="@{/}">
+                <span class="glyphicon glyphicon-off icon"></span>
+                Dashboard
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/management}">
+                <span class="glyphicon glyphicon-scale icon"></span>
+                Management
+            </a>
+        </li>
+        <li class="parent">
+            <a href="#">
+                    <span data-toggle="collapse" href="#sub-item-1">
+                        <span class="glyphicon glyphicon-chevron-down icon"></span>
+                        Visualization
+                    </span>
+            </a>
+            <ul class="children collapse" id="sub-item-1">
+                <li>
+                    <a th:href="@{/original}">
+                        <span class="glyphicon glyphicon-list-alt icon"></span>
+                        Original
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        map
+    </div>
+
+
+</div>
+</body>
+</html>

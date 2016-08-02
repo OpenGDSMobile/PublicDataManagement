@@ -7,8 +7,12 @@ import com.openGDSMobileApplicationServer.service.PublicDataCollected;
  */
 public class SeoulOpenDataCollectedService implements PublicDataCollected {
 
+    private String serviceName = "TimeAverageAirQuality";
+    private String serviceURL = null;
+    private String[] resultJSONKeys = null;
     @Override
     public String requestData() {
+
         return null;
     }
 
