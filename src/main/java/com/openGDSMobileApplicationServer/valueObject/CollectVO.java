@@ -10,8 +10,8 @@ public class CollectVO{
     String provider;
     String url;
     String ep;
-    int time;
-    boolean status;
+    int time = 0;
+    boolean status = false;
     String comment;
     String keys;
 

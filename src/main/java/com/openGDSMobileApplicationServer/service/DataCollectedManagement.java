@@ -8,7 +8,7 @@ import java.util.List;
  * Created by intruder on 16. 8. 2.
  */
 public interface DataCollectedManagement {
-    void insertCollected(CollectVO collect);
+    Boolean insertCollected(CollectVO collect) throws Exception;
     List<CollectVO> allListCollected();
     CollectVO selectCollected(String name);
     void runStopCollected(String name);
