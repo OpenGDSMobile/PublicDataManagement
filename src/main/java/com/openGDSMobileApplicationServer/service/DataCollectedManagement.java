@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface DataCollectedManagement {
     Boolean insertCollected(CollectVO collect) throws Exception;
-    List<CollectVO> allListCollected();
+    List<CollectVO> allListCollected() throws Exception;
     CollectVO selectCollected(String name);
     void runStopCollected(String name);
     void deleteCollected(String name);

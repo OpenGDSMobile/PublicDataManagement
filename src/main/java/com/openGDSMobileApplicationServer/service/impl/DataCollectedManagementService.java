@@ -18,14 +18,13 @@ public class DataCollectedManagementService implements DataCollectedManagement {
 
     @Override
     public Boolean insertCollected(CollectVO collect) throws Exception {
-        System.out.println(collect.toString());
-        dao.insertDataCollect(collect);
-        return true;
+        //System.out.println(collect.toString());
+        return dao.insertDataCollect(collect);
     }
 
     @Override
-    public List<CollectVO> allListCollected() {
-        return null;
+    public List<CollectVO> allListCollected() throws Exception {
+        return dao.findAllCollect();
     }
 
     @Override

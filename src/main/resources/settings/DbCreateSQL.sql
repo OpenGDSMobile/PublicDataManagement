@@ -15,3 +15,16 @@ CREATE TABLE "OPENDATACOLLECT"
   "NAME" character varying(50) NOT NULL,
   CONSTRAINT "NAME" PRIMARY KEY ("NAME")
 );
+
+
+/**
+{"name" : "environment",
+  "provider" : "Seoul Open Data",
+  "url": "http://data.seoul.go.kr",
+  "ep" : "http://openAPI.seoul.go.kr:8088",
+  "time" : 1,
+  "status" : true,
+  "comment" : "Seoul Environment in Korea",
+  "keys" :"Time/"
+}
+ */
