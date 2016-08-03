@@ -48,7 +48,9 @@ public class DefaultDatabaseConfig{
     {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(getDataSource());
-        sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:mapper/*.xml"));
+        sqlSessionFactoryBean.setTypeAliasesPackage("com.openGDSMobileApplicationServer.valueObject");
+        sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis/config.xml"));
+        sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:mybatis/mapper/*.xml"));
 
         return sqlSessionFactoryBean.getObject();
     }

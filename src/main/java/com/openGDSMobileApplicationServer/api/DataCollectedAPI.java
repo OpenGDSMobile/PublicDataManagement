@@ -21,7 +21,6 @@ public class DataCollectedAPI {
      * 404 Not Found : 정보가 없을 경우
      * 400 Bad Request : 요청 정보가 정확하지 않을 경우
      * 401 UNAUTHORIZED : 인증 실패
-     * XML Mapper 방식으로 변경.... 04일..
      */
     @Autowired
     DataCollectedManagement dataCollectService;
@@ -29,6 +28,7 @@ public class DataCollectedAPI {
 
     @RequestMapping (method={RequestMethod.POST})
     public ResponseEntity<String> registerDataAPI(@RequestBody CollectVO collect) throws Exception {
+        System.out.println(collect.toString());
         Boolean result = dataCollectService.insertCollected(collect);
         if (result == true) {
             return new ResponseEntity(HttpStatus.CREATED);

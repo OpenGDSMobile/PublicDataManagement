@@ -29,17 +29,21 @@ public class DataCollectedManagementDAO {
     public Boolean insertDataCollect(CollectVO collect) {
 
         int result = sqlSessionTemplate.insert("OpenGDSMobileTable.Collected.InsertData", collect);
+        /*int result = 0;*/
         try {
             //result = mapper.insertCollected(collect);
+            //result = mapper.InsertData(collect);
             //result = sqlSessionTemplate.insert("collected.insert", collect);
 
         } catch (Exception e) {
-           // e.printStackTrace();
+            e.printStackTrace();
         }
         System.out.println(result);
         return (result == 1) ? true : false;
     }
     public List<CollectVO> findAllCollect() throws Exception {
+        List<CollectVO> list = sqlSessionTemplate.selectList("OpenGDSMobileTable.Collected.findAllCollected");
+        System.out.println(list.toString());
       //  return mapper.findAllCollected();
         return null;
     }
