@@ -2,6 +2,7 @@ package com.openGDSMobileApplicationServer.mapper;
 
 import com.openGDSMobileApplicationServer.valueObject.CollectVO;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 /**
  * Created by intruder on 16. 8. 2.
  */
+@Mapper
 public interface CollectedMapper {
     /*
          String name;         String provider;         String url;         String ep;         int time;

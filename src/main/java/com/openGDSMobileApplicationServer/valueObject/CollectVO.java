@@ -6,14 +6,14 @@ import java.io.Serializable;
  * Created by intruder on 16. 8. 2.
  */
 public class CollectVO{
-    String name;
-    String provider;
-    String url;
-    String ep;
+    String name ="";
+    String provider ="";
+    String url ="";
+    String ep ="";
     int time = 0;
     boolean status = false;
-    String comment;
-    String keys;
+    String comment ="";
+    String keys ="";
 
     public CollectVO() {
     }

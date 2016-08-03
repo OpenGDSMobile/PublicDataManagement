@@ -50,6 +50,7 @@ public class DataCollectedAPI {
     @RequestMapping (value="/{name}", method = {RequestMethod.GET})
     public CollectVO queryNameData() throws Exception {
         //return dataCollectService.allListCollected();
+        return null;
     }
 
     @RequestMapping (value="/{name}", method={RequestMethod.DELETE})

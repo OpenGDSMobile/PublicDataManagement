@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="OpenGDSMobileTable.Collected">
+    <insert id="InsertData" parameterType="com.openGDSMobileApplicationServer.valueObject.CollectVO">
+        INSERT INTO OPENDATACOLLECT(NAME, PROVIDER, URL, EP, TIME, STATUS, COMMENT, KEYS)
+        VALUES(#{name, jdbcType=VARCHAR}, #{provider, jdbcType=VARCHAR}, #{url, jdbcType=VARCHAR},
+                #{ep, jdbcType=VARCHAR}, #{time, jdbcType=INTEGER}, #{status, jdbcType=BOOLEAN},
+                #{comment, jdbcType=VARCHAR}, #{keys, jdbcType=VARCHAR})
+        /*
+        INSERT INTO OPENDATACOLLECT(NAME, PROVIDER, URL, EP, TIME, STATUS, COMMENT, KEYS)
+        VALUES('#{name, jdbcType=VARCHAR}', '#{provider, jdbcType=VARCHAR}', '#{url, jdbcType=VARCHAR}', '#{ep, jdbcType=VARCHAR}',
+        '#{time, jdbcType=INTEGER}', '#{status, jdbcType=BOOLEAN}', '#{comment, jdbcType=VARCHAR}', '#{keys, jdbcType=VARCHAR}')*/
+    </insert>
+
+    <select id="findAllCollected" resultType="com.openGDSMobileApplicationServer.valueObject.CollectVO">
+        SELECT * FROM OPENDATACOLLECT
+    </select>
+
+</mapper>
