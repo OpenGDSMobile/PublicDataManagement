@@ -40,7 +40,7 @@ public class DataCollectedAPI {
     public ResponseEntity<String> managementDataAPI(@RequestBody CollectVO collect) {
         Boolean result= dataCollectService.editCollected(collect);
         if (result = true) {
-            return new ResponseEntity("OK", HttpStatus.OK);
+            return new ResponseEntity("EDIT OK", HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.EXPECTATION_FAILED);
     }
@@ -56,7 +56,7 @@ public class DataCollectedAPI {
                                                   @RequestParam(value="status") Boolean status) {
         Boolean result = dataCollectService.editCollected(name, status);
         if (result = true) {
-            return new ResponseEntity("OK", HttpStatus.OK);
+            return new ResponseEntity("STATUS OK", HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.EXPECTATION_FAILED);
     }
@@ -70,7 +70,7 @@ public class DataCollectedAPI {
     public ResponseEntity<String> deleteData(@PathVariable String name) {
         Boolean result = dataCollectService.deleteCollected(name);
         if (result = true) {
-            return new ResponseEntity("OK", HttpStatus.OK);
+            return new ResponseEntity("DELETE OK", HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.EXPECTATION_FAILED);
     }

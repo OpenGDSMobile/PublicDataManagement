@@ -20,16 +20,18 @@
         UPDATE "OPENDATACOLLECT" SET "STATUS"='${status}'  WHERE "NAME"='${name}'
     </update>
 
+    <update id="updateData"
+            parameterType="com.openGDSMobileApplicationServer.valueObject.CollectVO">
+        UPDATE "OPENDATACOLLECT" SET
+            "PROVIDER" = '${provider}', "URL"='${url}', "EP"='${ep}',
+            "TIME"='${time}', "COMMENT"='${comment}', "KEYS"='${keys}' WHERE "NAME" = '${name}'
+    </update>
+
     <select id="findOneCollected"
             parameterType="String"
             resultType="com.openGDSMobileApplicationServer.valueObject.CollectVO">
         SELECT * FROM "OPENDATACOLLECT" WHERE "NAME"=#{name}
     </select>
-
-    <update id="updateData" parameterType="com.openGDSMobileApplicationServer.valueObject.CollectVO">
-        /*UPDATE "OPENDATACOLLECT" SET ""*/
-
-    </update>
 
     <delete id="deleteData" parameterType="String">
         DELETE FROM "OPENDATACOLLECT" WHERE "NAME"=#{name}

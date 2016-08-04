@@ -43,6 +43,10 @@ public class DataCollectedManagementDAO {
         int result = sqlSessionTemplate.update("OpenGDSMobileTable.Collected.updateStatus", collect);
         return (result == 1) ? true : false;
     }
+    public Boolean updateDataCollect(CollectVO collect) {
+        int result = sqlSessionTemplate.update("OpenGDSMobileTable.Collected.updateData", collect);
+        return (result == 1) ? true : false;
+    }
     public Boolean deleteCollect(String name){
         int result = sqlSessionTemplate.delete("OpenGDSMobileTable.Collected.deleteData", name);
         System.out.println(result);
