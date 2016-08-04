@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -27,24 +28,25 @@ public class DataCollectedManagementDAO {
 
 
     public Boolean insertDataCollect(CollectVO collect) {
-
         int result = sqlSessionTemplate.insert("OpenGDSMobileTable.Collected.InsertData", collect);
-        /*int result = 0;*/
-        try {
-            //result = mapper.insertCollected(collect);
-            //result = mapper.InsertData(collect);
-            //result = sqlSessionTemplate.insert("collected.insert", collect);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         System.out.println(result);
         return (result == 1) ? true : false;
     }
-    public List<CollectVO> findAllCollect() throws Exception {
+    public List<CollectVO> findAllCollect(){
         List<CollectVO> list = sqlSessionTemplate.selectList("OpenGDSMobileTable.Collected.findAllCollected");
-        System.out.println(list.toString());
-      //  return mapper.findAllCollected();
-        return null;
+        return list;
     }
+    public CollectVO findOneCollect(String name) {
+        return sqlSessionTemplate.selectOne("OpenGDSMobileTable.Collected.findOneCollected", name);
+    }
+    public Boolean updateStatusCollect(CollectVO collect) {
+        int result = sqlSessionTemplate.update("OpenGDSMobileTable.Collected.updateStatus", collect);
+        return (result == 1) ? true : false;
+    }
+    public Boolean deleteCollect(String name){
+        int result = sqlSessionTemplate.delete("OpenGDSMobileTable.Collected.deleteData", name);
+        System.out.println(result);
+        return true;
+    }
+
 }

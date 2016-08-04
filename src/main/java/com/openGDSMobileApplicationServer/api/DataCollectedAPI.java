@@ -28,18 +28,21 @@ public class DataCollectedAPI {
 
     @RequestMapping (method={RequestMethod.POST})
     public ResponseEntity<String> registerDataAPI(@RequestBody CollectVO collect) throws Exception {
-        System.out.println(collect.toString());
         Boolean result = dataCollectService.insertCollected(collect);
         if (result == true) {
             return new ResponseEntity(HttpStatus.CREATED);
         }
         return new ResponseEntity(HttpStatus.EXPECTATION_FAILED);
-
     }
 
-    @RequestMapping (value="/{name}", method={RequestMethod.PUT})  //Management (Start/Stop/Edit)
-    public void managementDataAPI() {
 
+    @RequestMapping (method={RequestMethod.PUT})  //Management (Edit)
+    public ResponseEntity<String> managementDataAPI(@RequestBody CollectVO collect) {
+        Boolean result= dataCollectService.editCollected(collect);
+        if (result = true) {
+            return new ResponseEntity("OK", HttpStatus.OK);
+        }
+        return new ResponseEntity(HttpStatus.EXPECTATION_FAILED);
     }
 
     @RequestMapping (method = {RequestMethod.GET})
@@ -47,15 +50,29 @@ public class DataCollectedAPI {
         return dataCollectService.allListCollected();
     }
 
+
+    @RequestMapping (value="/status", method={RequestMethod.PUT})  //Status Change (Start/Stop)
+    public ResponseEntity<String> statusChangeAPI(@RequestParam(value="name") String name,
+                                                  @RequestParam(value="status") Boolean status) {
+        Boolean result = dataCollectService.editCollected(name, status);
+        if (result = true) {
+            return new ResponseEntity("OK", HttpStatus.OK);
+        }
+        return new ResponseEntity(HttpStatus.EXPECTATION_FAILED);
+    }
+
     @RequestMapping (value="/{name}", method = {RequestMethod.GET})
-    public CollectVO queryNameData() throws Exception {
-        //return dataCollectService.allListCollected();
-        return null;
+    public CollectVO queryNameData(@PathVariable String name) throws Exception {
+        return dataCollectService.selectOneCollected(name);
     }
 
     @RequestMapping (value="/{name}", method={RequestMethod.DELETE})
-    public void deleteData() {
-
+    public ResponseEntity<String> deleteData(@PathVariable String name) {
+        Boolean result = dataCollectService.deleteCollected(name);
+        if (result = true) {
+            return new ResponseEntity("OK", HttpStatus.OK);
+        }
+        return new ResponseEntity(HttpStatus.EXPECTATION_FAILED);
     }
 
     @ExceptionHandler

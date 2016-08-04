@@ -28,6 +28,10 @@ public class CollectVO{
         this.comment = "";
         this.keys = "";
     }
+    public CollectVO(String name, Boolean status) {
+        this.name = name;
+        this.status = status;
+    }
 
     public CollectVO(String name, String provider, String url, String ep, int time,
                      boolean status, String comment, String keys) {

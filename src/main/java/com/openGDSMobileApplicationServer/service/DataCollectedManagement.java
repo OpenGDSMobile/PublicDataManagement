@@ -10,9 +10,9 @@ import java.util.List;
 public interface DataCollectedManagement {
     Boolean insertCollected(CollectVO collect) throws Exception;
     List<CollectVO> allListCollected() throws Exception;
-    CollectVO selectCollected(String name);
-    void runStopCollected(String name);
-    void deleteCollected(String name);
-    void editCollected(String name, CollectVO collect);
+    CollectVO selectOneCollected(String name);
+    Boolean editCollected(CollectVO collect);
+    Boolean editCollected(String name, Boolean status);
+    Boolean deleteCollected(String name);
 
 }
