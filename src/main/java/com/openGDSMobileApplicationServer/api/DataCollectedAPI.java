@@ -1,6 +1,7 @@
 package com.openGDSMobileApplicationServer.api;
 
 import com.openGDSMobileApplicationServer.service.DataCollectedManagement;
+import com.openGDSMobileApplicationServer.service.PublicDataCollected;
 import com.openGDSMobileApplicationServer.valueObject.CollectVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -73,6 +74,15 @@ public class DataCollectedAPI {
             return new ResponseEntity("DELETE OK", HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.EXPECTATION_FAILED);
+    }
+
+    @Autowired
+    PublicDataCollected seoul;
+    @RequestMapping (value="/test", method={RequestMethod.GET})
+    public ResponseEntity<String> test() {
+        seoul.requestData("TimeAverageAirQuality");
+
+        return new ResponseEntity("OK", HttpStatus.OK);
     }
 
     @ExceptionHandler

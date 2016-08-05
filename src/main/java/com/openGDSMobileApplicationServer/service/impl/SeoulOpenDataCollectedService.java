@@ -1,19 +1,66 @@
 package com.openGDSMobileApplicationServer.service.impl;
 
 import com.openGDSMobileApplicationServer.service.PublicDataCollected;
+import com.openGDSMobileApplicationServer.valueObject.CollectVO;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * Created by intruder on 16. 8. 1.
  */
+@Service
 public class SeoulOpenDataCollectedService implements PublicDataCollected {
 
-    private String serviceName = "TimeAverageAirQuality";
+    Logger log = LoggerFactory.getLogger(SeoulOpenDataCollectedService.class);
+
+    @Autowired
+    DataCollectedManagementDAO dao;
+
+    @Autowired
+    OpenDataCollectedDAO seoulDao;
+
     private String serviceURL = null;
-    private String[] resultJSONKeys = null;
     @Override
-    public String requestData() {
+    public String requestData(String name) {
+
+        CollectVO serviceInfo = dao.findOneCollect(name);
+        serviceURL = serviceInfo.getEp() + serviceInfo.getKeys();
+        String curTime = this.getyyyyMMddHH00();
+        serviceURL = serviceURL + curTime;
+        log.info(serviceURL);
+        try {
+            JSONObject resultObj = seoulDao.getOpenDataJSON(serviceURL, "UTF-8");
+            log.info(resultObj.toString());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         return null;
+    }
+
+    public String getyyyyMMddHH00() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");
+        String resultTime = dateFormat.format(calendar.getTime());
+        int date = Integer.parseInt(resultTime.substring(0, resultTime.length()-4));
+        int hour = Integer.parseInt(resultTime.substring(resultTime.length()-4, resultTime.length()-2));
+        int minute = Integer.parseInt(resultTime.substring(resultTime.length()-2, resultTime.length()));
+        if (minute < 40) {
+            hour--;
+        }
+        String stringHour = (hour < 10) ? "0" + Integer.toString(hour) : Integer.toString(hour);
+        return Integer.toString(date) + stringHour + "00";
     }
 
 /*

@@ -5,7 +5,7 @@ package com.openGDSMobileApplicationServer.service;
  */
 public interface PublicDataCollected {
 
-    public String requestData();
+    public String requestData(String name);
 
 
 }
