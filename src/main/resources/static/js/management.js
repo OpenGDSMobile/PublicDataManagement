@@ -1,10 +1,7 @@
 /**
- * Created by intruder on 16. 7. 25.
+ * Created by intruder on 16. 8. 7.
  */
 var contextRoot = contextRoot;
-
-
-
 
 function collectedListRequest() {
     var numTrue=0;
@@ -13,9 +10,11 @@ function collectedListRequest() {
         type : 'GET',
         success : function (evt){
             $.each(evt, function(key, value) {
-                var indexTableTag = $('#indexTable > tbody:last');
+                var indexTableTag = $('#managementTable > tbody:last');
                 indexTableTag.append('<tr>' +
-                    '<td>' + (key + 1) + '</td>' +
+                    '<td> <div class="radio">' +
+                    '<label><iput type="radio" name="managementRadio"/>' +
+                    '</label></div> </td>' +
                     '<td>' + (value.name) + '</td>' +
                     '<td>' + (value.provider) + '</td>' +
                     '<td>' + (value.url) + '</td>' +
@@ -27,11 +26,7 @@ function collectedListRequest() {
                     numTrue += 1;
                 }
             });
-            $('#totalCollected').text(evt.length);
-            $('#trueCollected').text(numTrue);
-            $('#falseCollected').text((evt.length-numTrue));
-            /******* C3 추가...*************/
-            humane.log('Complete Loading Collected Public Data');
+            /*humane.log('Complete Loading Collected Public Data');*/
         },
         error : function (evt) {
             humane.log('Error Loading Collected Public Data. Please, confirm database connect.',{
@@ -45,7 +40,4 @@ function collectedListRequest() {
 
 $(function() {
     collectedListRequest();
-
-
-
 });

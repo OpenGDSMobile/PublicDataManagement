@@ -6,17 +6,20 @@
     <meta name="viewport" content="width=device-width" />
 
     <link rel="stylesheet" th:href="@{/static/css/bootstrap/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/humane/libnotify.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/main.css}"/>
 
     <script th:src="@{/static/js/jquery/jquery.min.js}"/>
     <script th:src="@{/static/js/bootstrap/bootstrap.min.js}"/>
 
-    <script th:src="@{/static/js/main.js}"/>
+
+    <script th:src="@{/static/js/humane/humane.min.js}"/>
 
     <script th:inline="javascript">
         var contextRoot = /*[[@{/}]]*/ '';
-        console.log(contextRoot);
     </script>
+
+    <script th:src="@{/static/js/management.js}"/>
 
     <title>Public Data Management Dashboard</title>
 </head>
@@ -68,8 +71,43 @@
     </ul>
 </div>
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+
+    <div class="row" style="padding-bottom: 20px;">
+        <h1>Management about collection of public data (Add / Start / Stop / Delete) </h1>
+    </div>
+
     <div class="row">
-        management
+        <div style="padding-bottom: 10px;">
+            <button type="button" class="btn btn-primary btn-block">Public Data Add</button>
+        </div>
+        <div class="table-responsive">
+            <table class="table" id="managementTable">
+                <thead>
+                <tr>
+                    <th>Check</th>
+                    <th>Public data name</th>
+                    <th>Provider</th>
+                    <th>Provider URL</th>
+                    <th>End-Point</th>
+                    <th>Time(Per)</th>
+                    <th>Collecting</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--
+                  <tr>&lt;!&ndash;test data&ndash;&gt;
+                      <td>1</td>
+                      <td>Seoul Environment in Korea</td>
+                      <td>Seoul</td>
+                      <td>data.seoul.go.kr</td>
+                      <td>http://openAPI.seoul.go.kr:8088</td>
+                      <td>1 Hour</td>
+                      <td>ON</td>
+                  </tr>
+                 -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
 

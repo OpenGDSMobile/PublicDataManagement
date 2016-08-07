@@ -6,17 +6,22 @@
     <meta name="viewport" content="width=device-width" />
 
     <link rel="stylesheet" th:href="@{/static/css/bootstrap/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/humane/libnotify.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/main.css}"/>
 
     <script th:src="@{/static/js/jquery/jquery.min.js}"/>
     <script th:src="@{/static/js/bootstrap/bootstrap.min.js}"/>
 
-    <script th:src="@{/static/js/main.js}"/>
+
+    <script th:src="@{/static/js/humane/humane.min.js}"/>
+
+
 
     <script th:inline="javascript">
         var contextRoot = /*[[@{/}]]*/ '';
-        console.log(contextRoot);
     </script>
+
+    <script th:src="@{/static/js/main.js}"/>
 
     <title>Public Data Management Dashboard</title>
 </head>
@@ -68,15 +73,25 @@
         </ul>
     </div>
     <div class="col-sm-9 col-sm-offset-2 col-lg-10 col-lg-offset-2 main">
-        <div class="row" style="padding-bottom: 50px;">
+        <div class="row" style="padding-bottom: 20px;">
             <h1>Status dashboard about collection of public data </h1>
+        </div>
+        <div class="row"  style="padding-bottom: 50px;">
+            <div>
+                Registered Public Data : <span id="totalCollected" style="margin-right:10px;"></span>
+
+                Running Count : <span id="trueCollected" style="margin-right:10px;"></span>
+
+                Stop Count : <span id="falseCollected"></span>
+            </div>
+
         </div>
         <div class="row">
             <div class="table-responsive">
-                <table class="table">
+                <table class="table" id="indexTable">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>NUM</th>
                             <th>Public data name</th>
                             <th>Provider</th>
                             <th>Provider URL</th>
@@ -86,7 +101,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><!--test data-->
+                      <!--
+                        <tr>&lt;!&ndash;test data&ndash;&gt;
                             <td>1</td>
                             <td>Seoul Environment in Korea</td>
                             <td>Seoul</td>
@@ -95,6 +111,7 @@
                             <td>1 Hour</td>
                             <td>ON</td>
                         </tr>
+                       -->
                     </tbody>
                 </table>
             </div>
