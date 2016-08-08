@@ -78,7 +78,7 @@ public class DataCollectedAPI {
 
     @Autowired
     PublicDataCollected seoul;
-    @RequestMapping (value="/test", method={RequestMethod.GET})
+    @RequestMapping (value="/SeoulRequestTest", method={RequestMethod.GET})
     public ResponseEntity<String> test() {
         seoul.requestData("TimeAverageAirQuality");
 

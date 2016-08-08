@@ -30,6 +30,8 @@ public class DataCollectedManagementService implements DataCollectedManagement {
         Map<String, Object> searchMap = convertObjectToMap(searchResult);
         Map<String, Object> changeDataMap = convertObjectToMap(collect);
         Map<String, Object> newDataMap = new HashMap<>();
+        CollectVO newCollect = new CollectVO();
+        Boolean changeStatus = collect.isStatus();
         searchMap.remove("status");
         changeDataMap.remove("status");
         if (searchResult != null) {
@@ -49,8 +51,8 @@ public class DataCollectedManagementService implements DataCollectedManagement {
                 }
             }
         }
-        CollectVO newCollect = new CollectVO();
         newCollect = (CollectVO) this.convertMapToObject(newDataMap, newCollect);
+        newCollect.setStatus(changeStatus);
        //System.out.println(newCollect.toString());
         return dao.updateDataCollect(newCollect);
     }

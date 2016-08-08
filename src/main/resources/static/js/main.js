@@ -21,6 +21,7 @@ function collectedListRequest() {
                     '<td>' + (value.url) + '</td>' +
                     '<td>' + (value.ep) + '</td>' +
                     '<td>' + (value.time) + '</td>' +
+                    '<td>' + (value.comment) + '</td>' +
                     '<td>' + (value.status) + '</td>' +
                     '</tr>');
                 if (value.status == true) {

@@ -23,7 +23,7 @@
     <update id="updateData"
             parameterType="com.openGDSMobileApplicationServer.valueObject.CollectVO">
         UPDATE "OPENDATACOLLECT" SET
-            "PROVIDER" = '${provider}', "URL"='${url}', "EP"='${ep}',
+            "PROVIDER" = '${provider}', "URL"='${url}', "EP"='${ep}', "STATUS"='${status}',
             "TIME"='${time}', "COMMENT"='${comment}', "KEYS"='${keys}' WHERE "NAME" = '${name}'
     </update>
 
