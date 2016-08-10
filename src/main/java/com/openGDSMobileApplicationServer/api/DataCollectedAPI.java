@@ -3,9 +3,13 @@ package com.openGDSMobileApplicationServer.api;
 import com.openGDSMobileApplicationServer.service.DataCollectedManagement;
 import com.openGDSMobileApplicationServer.service.PublicDataCollected;
 import com.openGDSMobileApplicationServer.valueObject.CollectVO;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/Collected")
-public class DataCollectedAPI {
+public class DataCollectedAPI extends QuartzJobBean {
     /**
      * 201 Created : 생성이 이상없이 되었을 때
      * 417 Expectation Failed : 실행이 제대로 되지 않았을 때
@@ -76,7 +80,7 @@ public class DataCollectedAPI {
         return new ResponseEntity(HttpStatus.EXPECTATION_FAILED);
     }
 
-    @Autowired
+    /*@Autowired*/
     PublicDataCollected seoul;
     @RequestMapping (value="/SeoulRequestTest", method={RequestMethod.GET})
     public ResponseEntity<String> test() {
@@ -91,4 +95,15 @@ public class DataCollectedAPI {
 
     }
 
+    @Autowired
+    public void setPublicDataCollected(PublicDataCollected seoul){
+        this.seoul = seoul;
+    }
+
+
+    @Override
+    protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        seoul.requestData("TimeAverageAirQuality");
+
+    }
 }

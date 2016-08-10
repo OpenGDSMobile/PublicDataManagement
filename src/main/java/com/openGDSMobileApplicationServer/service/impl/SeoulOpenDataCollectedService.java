@@ -3,9 +3,13 @@ package com.openGDSMobileApplicationServer.service.impl;
 import com.openGDSMobileApplicationServer.service.PublicDataCollected;
 import com.openGDSMobileApplicationServer.valueObject.CollectVO;
 import org.json.JSONObject;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -17,7 +21,7 @@ import java.util.Calendar;
  * Created by intruder on 16. 8. 1.
  */
 @Service
-public class SeoulOpenDataCollectedService implements PublicDataCollected {
+public class SeoulOpenDataCollectedService extends QuartzJobBean implements PublicDataCollected {
 
     Logger log = LoggerFactory.getLogger(SeoulOpenDataCollectedService.class);
 
@@ -62,6 +66,14 @@ public class SeoulOpenDataCollectedService implements PublicDataCollected {
         String stringHour = (hour < 10) ? "0" + Integer.toString(hour) : Integer.toString(hour);
         return Integer.toString(date) + stringHour + "00";
     }
+
+    @Override
+    protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+//        System.out.println("TTTTT");
+        this.requestData("TimeAverageAirQuality");
+
+    }
+
 
 /*
 
