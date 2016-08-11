@@ -37,8 +37,10 @@ public class SeoulOpenDataCollectedService extends QuartzJobBean implements Publ
 
         CollectVO serviceInfo = dao.findOneCollect(name);
         serviceURL = serviceInfo.getEp() + serviceInfo.getKeys();
-        String curTime = this.getyyyyMMddHH00();
-        serviceURL = serviceURL + curTime;
+        if (serviceInfo.getName().equals("TimeAverageAirQuality")) {
+            String curTime = this.getyyyyMMddHH00();
+            serviceURL = serviceURL + curTime;
+        }
         log.info(serviceURL);
         try {
             JSONObject resultObj = seoulDao.getOpenDataJSON(serviceURL, "UTF-8");
@@ -69,9 +71,8 @@ public class SeoulOpenDataCollectedService extends QuartzJobBean implements Publ
 
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-//        System.out.println("TTTTT");
-        this.requestData("TimeAverageAirQuality");
-
+        String dataName = jobExecutionContext.getJobDetail().getKey().getName();
+        this.requestData(dataName);
     }
 
 

@@ -1,7 +1,9 @@
 package com.openGDSMobileApplicationServer;
 
-import org.quartz.Scheduler;
-import org.quartz.Trigger;
+import com.openGDSMobileApplicationServer.service.impl.DataCollectedManagementDAO;
+import com.openGDSMobileApplicationServer.service.impl.SeoulOpenDataCollectedService;
+import com.openGDSMobileApplicationServer.valueObject.CollectVO;
+import org.quartz.*;
 import org.quartz.spi.JobFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -19,6 +21,7 @@ public class QuartzConfig {
     @Autowired
     private ApplicationContext applicationContext;
 
+
     @Autowired(required = false)
     List<Trigger> triggers;
 
@@ -33,13 +36,12 @@ public class QuartzConfig {
     public SchedulerFactoryBean schedulerFactoryBean() {
         SchedulerFactoryBean scheduler = new SchedulerFactoryBean();
         scheduler.setJobFactory(jobFactory());
-        if(triggers != null && !triggers.isEmpty()) {
-            scheduler.setTriggers(triggers.toArray(new Trigger[triggers.size()]));
-        }
         return scheduler;
     }
+    /*
     @Bean
     public Scheduler scheduler(SchedulerFactoryBean schedulerFactoryBean) {
         return schedulerFactoryBean.getObject();
     }
+    */
 }

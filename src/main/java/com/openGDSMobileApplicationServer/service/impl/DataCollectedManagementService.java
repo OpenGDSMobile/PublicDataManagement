@@ -1,8 +1,12 @@
 package com.openGDSMobileApplicationServer.service.impl;
 
 import com.openGDSMobileApplicationServer.service.DataCollectedManagement;
+import com.openGDSMobileApplicationServer.service.SchedulerManagement;
 import com.openGDSMobileApplicationServer.valueObject.CollectVO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
@@ -16,12 +20,29 @@ import java.util.*;
 @Service
 public class DataCollectedManagementService implements DataCollectedManagement {
 
+
+    Logger log = LoggerFactory.getLogger(DataCollectedManagement.class);
+
     @Autowired
     DataCollectedManagementDAO dao;
 
+    @Autowired
+    @Qualifier("SeoulScheduler")
+    SchedulerManagement scheduler;
+
     @Override
     public Boolean insertCollected(CollectVO collect){
-        return dao.insertDataCollect(collect);
+
+        Boolean insertResult =dao.insertDataCollect(collect);
+        int time = collect.getTime();
+        int hour = time / 60;
+        int minute = time % 60;
+        log.info("hour: " + hour + " minute: " + minute);
+
+
+        scheduler.registerSchedule(collect.getName(), "0/10 * * * * ?");
+
+        return insertResult;
     }
 
     @Override
@@ -53,7 +74,15 @@ public class DataCollectedManagementService implements DataCollectedManagement {
         }
         newCollect = (CollectVO) this.convertMapToObject(newDataMap, newCollect);
         newCollect.setStatus(changeStatus);
-       //System.out.println(newCollect.toString());
+
+        if (searchResult.isStatus() != collect.isStatus()) {
+            if (collect.isStatus() == true) {
+                scheduler.resumeSchedule(collect.getName());
+            } else {
+                scheduler.stopSchedule(collect.getName());
+                log.info("test");
+            }
+        }
         return dao.updateDataCollect(newCollect);
     }
 

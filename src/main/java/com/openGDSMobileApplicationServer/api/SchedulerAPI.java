@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -22,7 +23,8 @@ public class SchedulerAPI {
     private SchedulerFactoryBean schedulerFactory;
 
     @RequestMapping(value="/SeoulOpenData", method = RequestMethod.POST)
-    public ResponseEntity<String> registerScheduler(){
+    public ResponseEntity<String> registerStartScheduler(@RequestParam(value="name") String name){
+
 
         return null;
     }

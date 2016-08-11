@@ -19,7 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/Collected")
-public class DataCollectedAPI extends QuartzJobBean {
+public class DataCollectedAPI {
     /**
      * 201 Created : 생성이 이상없이 되었을 때
      * 417 Expectation Failed : 실행이 제대로 되지 않았을 때
@@ -55,7 +55,7 @@ public class DataCollectedAPI extends QuartzJobBean {
         return dataCollectService.allListCollected();
     }
 
-
+/*
     @RequestMapping (value="/status", method={RequestMethod.PUT})  //Status Change (Start/Stop)
     public ResponseEntity<String> statusChangeAPI(@RequestParam(value="name") String name,
                                                   @RequestParam(value="status") Boolean status) {
@@ -65,6 +65,7 @@ public class DataCollectedAPI extends QuartzJobBean {
         }
         return new ResponseEntity(HttpStatus.EXPECTATION_FAILED);
     }
+*/
 
     @RequestMapping (value="/{name}", method = {RequestMethod.GET})
     public CollectVO queryNameData(@PathVariable String name) throws Exception {
@@ -80,30 +81,9 @@ public class DataCollectedAPI extends QuartzJobBean {
         return new ResponseEntity(HttpStatus.EXPECTATION_FAILED);
     }
 
-    /*@Autowired*/
-    PublicDataCollected seoul;
-    @RequestMapping (value="/SeoulRequestTest", method={RequestMethod.GET})
-    public ResponseEntity<String> test() {
-        seoul.requestData("TimeAverageAirQuality");
-
-        return new ResponseEntity("OK", HttpStatus.OK);
-    }
-
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public void handleCollectNotFound(){
-
-    }
-
-    @Autowired
-    public void setPublicDataCollected(PublicDataCollected seoul){
-        this.seoul = seoul;
-    }
-
-
-    @Override
-    protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        seoul.requestData("TimeAverageAirQuality");
 
     }
 }
