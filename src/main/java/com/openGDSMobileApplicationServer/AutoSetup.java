@@ -10,6 +10,8 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Component;
 
+import static org.quartz.SimpleScheduleBuilder.*;
+
 import java.util.List;
 
 /**
@@ -17,7 +19,6 @@ import java.util.List;
  */
 @Component
 public class AutoSetup implements ApplicationListener<ContextRefreshedEvent>{
-
 
     @Autowired
     private SchedulerFactoryBean schedulerFactory;
@@ -31,8 +32,7 @@ public class AutoSetup implements ApplicationListener<ContextRefreshedEvent>{
         for (int i=0; i<items.size(); i++){
             String key = items.get(i).getName();
             int time = items.get(i).getTime();
-            Boolean status = items.get(i).isStatus();
-            String cron = "0/10 * * * * ?";
+         //   String cron = "0 0/" + minute + " 0/" + hour + " * * ?";
 
             JobKey jobKey = new JobKey(key);
             TriggerKey triggerKey = new TriggerKey(key);
@@ -43,7 +43,8 @@ public class AutoSetup implements ApplicationListener<ContextRefreshedEvent>{
             //0/10 * * * * ?
             Trigger trigger = TriggerBuilder.newTrigger()
                     .withIdentity(triggerKey)
-                    .withSchedule(CronScheduleBuilder.cronSchedule(cron)).build();
+                    .withSchedule(simpleSchedule().withIntervalInMinutes(time).repeatForever()).build();
+                    /*.withSchedule(CronScheduleBuilder.cronSchedule(cron)).build();*/
 
             try {
                 schedulerFactory.getScheduler().scheduleJob(job, trigger);

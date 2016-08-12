@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Created by intruder on 16. 8. 1.
@@ -63,7 +64,15 @@ public class SeoulOpenDataCollectedService extends QuartzJobBean implements Publ
         int hour = Integer.parseInt(resultTime.substring(resultTime.length()-4, resultTime.length()-2));
         int minute = Integer.parseInt(resultTime.substring(resultTime.length()-2, resultTime.length()));
         if (minute < 40) {
-            hour--;
+            if (hour == 0) {
+                hour = 23;
+                calendar.add(Calendar.DATE, -1);
+                SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyyMMdd");
+                date = Integer.parseInt(dateFormatter.format(calendar.getTime()));
+            } else {
+                hour--;
+            }
+
         }
         String stringHour = (hour < 10) ? "0" + Integer.toString(hour) : Integer.toString(hour);
         return Integer.toString(date) + stringHour + "00";
@@ -72,6 +81,10 @@ public class SeoulOpenDataCollectedService extends QuartzJobBean implements Publ
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         String dataName = jobExecutionContext.getJobDetail().getKey().getName();
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");
+        String resultTime = dateFormat.format(calendar.getTime());
+        log.info(resultTime);
         this.requestData(dataName);
     }
 

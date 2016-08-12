@@ -80,10 +80,11 @@ public class DataCollectedAPI {
         }
         return new ResponseEntity(HttpStatus.EXPECTATION_FAILED);
     }
-
+/*
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public void handleCollectNotFound(){
-
+    public String handleCollectNotFound(){
+        return "Not Page Error";
     }
+    */
 }

@@ -12,7 +12,7 @@ public interface DataCollectedManagement {
     List<CollectVO> allListCollected() throws Exception;
     CollectVO selectOneCollected(String name);
     Boolean editCollected(CollectVO collect);
-    Boolean editCollected(String name, Boolean status);
+    /*Boolean editCollected(String name, Boolean status);*/
     Boolean deleteCollected(String name);
 
 }

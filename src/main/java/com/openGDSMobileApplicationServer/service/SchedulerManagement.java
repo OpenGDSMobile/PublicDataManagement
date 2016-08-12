@@ -9,11 +9,11 @@ import org.quartz.Trigger;
  */
 public interface SchedulerManagement {
 
-    void registerSchedule(String key, String cron);
+    void registerSchedule(String key, int time);
     void resumeSchedule(String key);
     void stopSchedule(String key);
     void searchSchedule();
     void deleteSchedule(String key);
-    void editTimeSchedule();
+    void editTimeSchedule(String key,int time);
 
 }

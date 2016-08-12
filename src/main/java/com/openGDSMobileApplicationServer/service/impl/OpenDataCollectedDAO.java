@@ -23,7 +23,7 @@ import java.net.URL;
 public class OpenDataCollectedDAO {
 
 
-    public JSONObject getOpenDataJSON(String path,String encoding) throws URISyntaxException, IOException {
+    public JSONObject getOpenDataJSON(String path, String encoding) throws URISyntaxException, IOException {
         URI uri = new URI(path);
         InputStreamReader is = new InputStreamReader(uri.toURL().openStream(), encoding);
         JSONTokener tokener = new JSONTokener(is);

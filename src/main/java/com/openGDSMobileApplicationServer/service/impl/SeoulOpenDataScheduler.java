@@ -1,6 +1,5 @@
 package com.openGDSMobileApplicationServer.service.impl;
 
-import com.openGDSMobileApplicationServer.service.DataCollectedManagement;
 import com.openGDSMobileApplicationServer.service.SchedulerManagement;
 import org.quartz.*;
 import org.slf4j.Logger;
@@ -8,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Repository;
+
+import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 
 /**
  * Created by intruder on 16. 8. 11.
@@ -19,7 +20,7 @@ public class SeoulOpenDataScheduler implements SchedulerManagement {
     @Autowired
     private SchedulerFactoryBean schedulerFactory;
     @Override
-    public void registerSchedule(String key, String cron) {
+    public void registerSchedule(String key, int time) {
 
         JobKey jobKey = new JobKey(key);
         TriggerKey triggerKey = new TriggerKey(key);
@@ -30,7 +31,8 @@ public class SeoulOpenDataScheduler implements SchedulerManagement {
         //0/10 * * * * ?
         Trigger trigger = TriggerBuilder.newTrigger()
                 .withIdentity(triggerKey)
-                .withSchedule(CronScheduleBuilder.cronSchedule(cron)).build();
+                .withSchedule(simpleSchedule().withIntervalInMinutes(time).repeatForever()).build();
+                /*.withSchedule(CronScheduleBuilder.cronSchedule(cron)).build();*/
 
         try {
 
@@ -79,7 +81,16 @@ public class SeoulOpenDataScheduler implements SchedulerManagement {
     }
 
     @Override
-    public void editTimeSchedule() {
+    public void editTimeSchedule(String key, int time) {
+        try {
+            Trigger oldTrigger = schedulerFactory.getScheduler().getTrigger(TriggerKey.triggerKey(key));
+            TriggerBuilder tb = oldTrigger.getTriggerBuilder();
+
+            Trigger newTrigger = tb.withSchedule(simpleSchedule().withIntervalInMinutes(time).repeatForever()).build();
+            schedulerFactory.getScheduler().rescheduleJob(oldTrigger.getKey(), newTrigger);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
 
     }
 }

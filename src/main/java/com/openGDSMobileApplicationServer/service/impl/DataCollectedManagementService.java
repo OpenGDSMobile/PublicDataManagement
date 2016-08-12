@@ -35,12 +35,14 @@ public class DataCollectedManagementService implements DataCollectedManagement {
 
         Boolean insertResult =dao.insertDataCollect(collect);
         int time = collect.getTime();
+        /*
         int hour = time / 60;
         int minute = time % 60;
-        log.info("hour: " + hour + " minute: " + minute);
+        String cron = "0 0/" + minute + " 0/" + hour + " * * ?";
+        log.info(cron);
+        */
 
-
-        scheduler.registerSchedule(collect.getName(), "0/10 * * * * ?");
+        scheduler.registerSchedule(collect.getName(), time);
 
         return insertResult;
     }
@@ -80,19 +82,23 @@ public class DataCollectedManagementService implements DataCollectedManagement {
                 scheduler.resumeSchedule(collect.getName());
             } else {
                 scheduler.stopSchedule(collect.getName());
-                log.info("test");
             }
+        }
+        if (searchResult.getTime() != collect.getTime()) {
+            scheduler.editTimeSchedule(collect.getName(), collect.getTime());
+            log.info("Time Change");
         }
         return dao.updateDataCollect(newCollect);
     }
 
 
-
+/*
     @Override
     public Boolean editCollected(String name, Boolean status) {
         CollectVO collect = new CollectVO(name, status);
         return dao.updateStatusCollect(collect);
     }
+*/
 
     @Override
     public List<CollectVO> allListCollected(){
