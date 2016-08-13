@@ -49,28 +49,4 @@ public class SchedulerAPI {
     public ResponseEntity<String> searchScheduler(){
         return null;
     }
-
-
-    @RequestMapping(value="/SeoulRequestTest", method={RequestMethod.GET})
-    public ResponseEntity<String> test() {
-
-        JobKey key = new JobKey("test");
-        JobDetail job = JobBuilder.newJob(SeoulOpenDataCollectedService.class)
-                .withIdentity(key).build();
-
-        Trigger trigger = TriggerBuilder.newTrigger()
-                .withIdentity("cron", "group1")
-                .withSchedule(CronScheduleBuilder.cronSchedule("0/10 * * * * ?")).build();
-     //   schedulerFactory.start();
-        try {
-            schedulerFactory.getScheduler().scheduleJob(job, trigger);
-           // schedulerFactory.getScheduler().
-        } catch (SchedulerException e) {
-            e.printStackTrace();
-        }
-
-        //    seoul.requestData("TimeAverageAirQuality");
-
-        return new ResponseEntity("OK", HttpStatus.OK);
-    }
 }

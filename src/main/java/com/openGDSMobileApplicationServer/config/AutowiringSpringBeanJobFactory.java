@@ -1,4 +1,4 @@
-package com.openGDSMobileApplicationServer;
+package com.openGDSMobileApplicationServer.config;
 
 import org.quartz.spi.TriggerFiredBundle;
 import org.springframework.beans.BeansException;

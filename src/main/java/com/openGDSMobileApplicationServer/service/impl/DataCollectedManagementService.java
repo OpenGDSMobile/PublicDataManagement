@@ -35,14 +35,8 @@ public class DataCollectedManagementService implements DataCollectedManagement {
 
         Boolean insertResult =dao.insertDataCollect(collect);
         int time = collect.getTime();
-        /*
-        int hour = time / 60;
-        int minute = time % 60;
-        String cron = "0 0/" + minute + " 0/" + hour + " * * ?";
-        log.info(cron);
-        */
-
         scheduler.registerSchedule(collect.getName(), time);
+
 
         return insertResult;
     }

@@ -32,7 +32,6 @@ public class AutoSetup implements ApplicationListener<ContextRefreshedEvent>{
         for (int i=0; i<items.size(); i++){
             String key = items.get(i).getName();
             int time = items.get(i).getTime();
-         //   String cron = "0 0/" + minute + " 0/" + hour + " * * ?";
 
             JobKey jobKey = new JobKey(key);
             TriggerKey triggerKey = new TriggerKey(key);
@@ -40,7 +39,6 @@ public class AutoSetup implements ApplicationListener<ContextRefreshedEvent>{
             JobDetail job = JobBuilder.newJob(SeoulOpenDataCollectedService.class)
                     .withIdentity(jobKey).build();
 
-            //0/10 * * * * ?
             Trigger trigger = TriggerBuilder.newTrigger()
                     .withIdentity(triggerKey)
                     .withSchedule(simpleSchedule().withIntervalInMinutes(time).repeatForever()).build();

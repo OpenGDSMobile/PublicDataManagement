@@ -1,8 +1,5 @@
-package com.openGDSMobileApplicationServer;
+package com.openGDSMobileApplicationServer.config;
 
-import com.openGDSMobileApplicationServer.service.impl.DataCollectedManagementDAO;
-import com.openGDSMobileApplicationServer.service.impl.SeoulOpenDataCollectedService;
-import com.openGDSMobileApplicationServer.valueObject.CollectVO;
 import org.quartz.*;
 import org.quartz.spi.JobFactory;
 import org.springframework.beans.factory.annotation.Autowired;

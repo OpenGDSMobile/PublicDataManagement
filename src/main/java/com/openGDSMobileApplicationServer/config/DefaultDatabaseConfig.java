@@ -1,4 +1,4 @@
-package com.openGDSMobileApplicationServer;
+package com.openGDSMobileApplicationServer.config;
 
 
 import javax.sql.DataSource;
