@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * Created by intruder on 16. 8. 13.
  */
@@ -24,8 +26,13 @@ public class MongoDBAPI {
 
 
     @RequestMapping (value="/{name}/{fieldName}", method = {RequestMethod.GET})
-    public void findAllCollection(@PathVariable String name, @PathVariable String fieldName){
-        service.findFieldCollection(name, fieldName);
+    public List<Object> findAllFieldCollection(@PathVariable String name, @PathVariable String fieldName){
+        return service.findFieldCollection(name, fieldName);
+    }
+
+    @RequestMapping (value="/{name}/{fieldName}/{is}", method = {RequestMethod.GET})
+    public Object findWhereCollection(@PathVariable String name, @PathVariable String fieldName, @PathVariable String is){
+        return service.findWhereIsCollection(name, fieldName, is);
     }
 
 }

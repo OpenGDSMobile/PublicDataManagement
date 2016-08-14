@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by intruder on 16. 8. 13.
  */
@@ -21,10 +23,12 @@ public class MongoDBManagementService {
 
     }
 
-    public void findFieldCollection(String name, String fieldName){
-        Object obj = dao.findFieldQuery(name, fieldName);
-        log.info(obj.toString());
+    public List<Object> findFieldCollection(String name, String fieldName){
+        return dao.findFieldQuery(name, fieldName);
 
     }
 
+    public Object findWhereIsCollection(String name, String whereField, String isQuery){
+        return dao.findWhereIsQuery(name, whereField, isQuery);
+    }
 }

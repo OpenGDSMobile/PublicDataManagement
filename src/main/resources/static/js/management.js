@@ -44,10 +44,24 @@ function collectedListRequest() {
 $(function() {
     collectedListRequest();
     /*******************************/
-    $('.btn-del').click(function() {
-        var data = $(this);
-        console.log(data);
-    })
+    $(document).on('click', '.btn-del', function(evt) {
+        var name = $(evt.target).data("name");
+        $.ajax({
+            url : contextRoot + "api/Collected/" + name,
+            type : 'DELETE',
+            success : function (){
+                humane.log('Complete ' + text + 'Delete Public Data');
+                location.reload(true);
+            },
+            error : function (evt){
+                humane.log('Error Delete Public Data. Please, confirm database connect.',{
+                    addnCls : 'humane-libnotify-error'
+                });
+                console.log(evt);
+            }
+        });
+
+    });
 
     $('#saveBtn').click(function(){
         if ( isNaN($('#modalTime').val()) == true ) {

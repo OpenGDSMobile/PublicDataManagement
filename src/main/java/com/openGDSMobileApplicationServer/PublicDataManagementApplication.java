@@ -14,7 +14,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = {DataSourceTransactionManagerAutoConfiguration.class, DataSourceAutoConfiguration.class})
-@ComponentScan(basePackages = {"com.openGDSMobileApplicationServer"})
 public class PublicDataManagementApplication {
 
 	public static void main(String[] args) throws SchedulerException {

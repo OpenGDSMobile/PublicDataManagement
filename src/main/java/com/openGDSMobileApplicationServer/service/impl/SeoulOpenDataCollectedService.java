@@ -48,6 +48,9 @@ public class SeoulOpenDataCollectedService extends QuartzJobBean implements Publ
         if (serviceInfo.getName().equals("TimeAverageAirQuality")) {
             String curTime = this.getyyyyMMddHH00();
             serviceURL = serviceURL + curTime;
+        } else if (serviceInfo.getName().equals("WPOSInformation")) {
+            String prevTime = this.getPrevyyyyMMdd();
+            serviceURL = serviceURL + prevTime;
         }
 
         try {
@@ -70,6 +73,13 @@ public class SeoulOpenDataCollectedService extends QuartzJobBean implements Publ
 
 
         return null;
+    }
+
+    public String getPrevyyyyMMdd() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -1);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        return dateFormat.format(calendar.getTime());
     }
 
     public String getyyyyMMddHHMM() {

@@ -58,12 +58,19 @@ public class MongoDBManagementDAO {
         return true;
     }
     public List<Object> findAll(String name) {
+
         return mongoOperations.findAll(Object.class, name);
     }
 //BasicQuery query = new BasicQuery("{}, {_id:0, " + q + ":1}");
     public List<Object> findFieldQuery(String name, String q){
         Query query = new Query();
         query.fields().include(q);
+        return mongoOperations.find(query, Object.class, name);
+    }
+
+    public Object findWhereIsQuery(String name, String whereField, String q) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where(whereField).is(q));
         return mongoOperations.find(query, Object.class, name);
     }
 

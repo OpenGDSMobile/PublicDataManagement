@@ -50,7 +50,7 @@
         <li>
             <a th:href="@{/management}">
                 <span class="glyphicon glyphicon-scale icon"></span>
-                Management
+                Collect Management
             </a>
         </li>
         <li class="parent">
@@ -65,6 +65,18 @@
                     <a th:href="@{/original}">
                         <span class="glyphicon glyphicon-list-alt icon"></span>
                         Original
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/chart}">
+                        <span class="glyphicon glyphicon-signal icon"></span>
+                        Chart
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/map}">
+                        <span class="glyphicon glyphicon-globe icon"></span>
+                        Map
                     </a>
                 </li>
             </ul>
@@ -91,7 +103,7 @@
                     <th>Provider URL</th>
                     <th>End-Point</th>
                     <th>Time(Per)</th>
-                    <th>Keys</th>
+                    <th>Parameters</th>
                     <th>Collecting</th>
                     <th>Edit</th>
                 </tr>

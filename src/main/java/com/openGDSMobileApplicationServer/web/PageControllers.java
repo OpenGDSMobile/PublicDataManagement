@@ -25,5 +25,8 @@ public class PageControllers {
     @RequestMapping(value="/map")
     String map() {return "map"; }
 
+    @RequestMapping(value="/chart")
+    String chart() {return "chart"; }
+
 
 }

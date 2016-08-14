@@ -1,4 +1,4 @@
-package com.openGDSMobileApplicationServer;
+package com.openGDSMobileApplicationServer.config;
 
 import com.openGDSMobileApplicationServer.service.impl.DataCollectedManagementDAO;
 import com.openGDSMobileApplicationServer.service.impl.SeoulOpenDataCollectedService;
