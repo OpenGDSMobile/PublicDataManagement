@@ -20,8 +20,8 @@ public class MongoDBAPI {
     MongoDBManagementService service;
 
     @RequestMapping (value="/{name}", method = {RequestMethod.GET})
-    public void findAllCollection(@PathVariable String name){
-        service.findAllCollection(name);
+    public List<Object> findAllCollection(@PathVariable String name){
+        return service.findAllCollection(name);
     }
 
 
@@ -30,9 +30,20 @@ public class MongoDBAPI {
         return service.findFieldCollection(name, fieldName);
     }
 
-    @RequestMapping (value="/{name}/{fieldName}/{is}", method = {RequestMethod.GET})
-    public Object findWhereCollection(@PathVariable String name, @PathVariable String fieldName, @PathVariable String is){
-        return service.findWhereIsCollection(name, fieldName, is);
+    @RequestMapping (value="/{name}/{fieldName}/{queryType}/{query}", method = {RequestMethod.GET})
+    public Object findWhereCollection(@PathVariable String name, @PathVariable String fieldName, @PathVariable String queryType, @PathVariable String query){
+        return service.findWhereIsCollection(name, fieldName, query, queryType);
+    }
+
+    @RequestMapping (value="/{name}/fieldName}/gt/{gt}", method={RequestMethod.GET})
+    public List<Object> findWhereGtCollections(@PathVariable String name, @PathVariable String fieldName, @PathVariable String gt){
+        return null;
+    }
+
+
+    @RequestMapping (value="/selectOne/{name}", method = {RequestMethod.GET})
+    public Object findFirstCollection(@PathVariable String name){
+        return service.findFirstCollection(name);
     }
 
 }

@@ -17,9 +17,8 @@ public class MongoDBManagementService {
     @Autowired
     MongoDBManagementDAO dao;
 
-    public void findAllCollection(String name){
-        Object obj = dao.findAll(name);
-        log.info(obj.toString());
+    public List<Object> findAllCollection(String name){
+        return dao.findAll(name);
 
     }
 
@@ -28,7 +27,11 @@ public class MongoDBManagementService {
 
     }
 
-    public Object findWhereIsCollection(String name, String whereField, String isQuery){
-        return dao.findWhereIsQuery(name, whereField, isQuery);
+    public Object findWhereIsCollection(String name, String whereField, String isQuery, String queryType){
+        return dao.findWhereIsQuery(name, whereField, isQuery, queryType);
+    }
+
+    public Object findFirstCollection(String name){
+        return dao.findFirstQuery(name);
     }
 }

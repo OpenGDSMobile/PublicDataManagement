@@ -16,17 +16,17 @@ public class PageControllers {
         return "index";
     }
 
-    @RequestMapping(value="/original")
-    String original() {return "original"; }
-
     @RequestMapping(value="/management")
     String management() {return "management"; }
 
-    @RequestMapping(value="/map")
-    String map() {return "map"; }
+    @RequestMapping(value="/original")
+    String original() {return "vis/original"; }
 
     @RequestMapping(value="/chart")
-    String chart() {return "chart"; }
+    String chart() {return "vis/chart"; }
+
+    @RequestMapping(value="/map")
+    String map() {return "vis/map"; }
 
 
 }

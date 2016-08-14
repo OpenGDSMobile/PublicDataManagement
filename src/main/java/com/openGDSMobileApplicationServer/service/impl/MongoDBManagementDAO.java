@@ -58,20 +58,28 @@ public class MongoDBManagementDAO {
         return true;
     }
     public List<Object> findAll(String name) {
-
         return mongoOperations.findAll(Object.class, name);
     }
-//BasicQuery query = new BasicQuery("{}, {_id:0, " + q + ":1}");
+        //BasicQuery query = new BasicQuery("{}, {_id:0, " + q + ":1}");
     public List<Object> findFieldQuery(String name, String q){
         Query query = new Query();
         query.fields().include(q);
         return mongoOperations.find(query, Object.class, name);
     }
 
-    public Object findWhereIsQuery(String name, String whereField, String q) {
+    public List<Object> findWhereIsQuery(String name, String whereField, String q, String queryType) {
         Query query = new Query();
-        query.addCriteria(Criteria.where(whereField).is(q));
+        if (queryType.equals("is")){
+            query.addCriteria(Criteria.where(whereField).is(q));
+        } else if (queryType.equals("gt")){
+            query.addCriteria(Criteria.where(whereField).gte(q));
+        }
         return mongoOperations.find(query, Object.class, name);
+    }
+
+    public Object findFirstQuery(String name){
+        Query query = new Query();
+        return mongoOperations.findOne(query, Object.class, name);
     }
 
 }

@@ -17,12 +17,13 @@
 
 
     <script th:src="@{/static/js/humane/humane.min.js}"/>
+    <script th:src="@{/static/js/d3/d3.min.js}"/>
 
     <script th:inline="javascript">
         var contextRoot = /*[[@{/}]]*/ '';
     </script>
 
-    <script th:src="@{/static/js/original.js}"/>
+    <script th:src="@{/static/js/chart.js}"/>
 
     <title>Public Data Management Dashboard</title>
 </head>
@@ -88,6 +89,61 @@
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
     <div class="row" style="padding-bottom: 20px;">
         <h1>Data Visualization (Chart) </h1>
+    </div>
+    <div class="col-sm-12 col-lg-6">
+        <h2> Step 1: Select public data</h2>
+        <select class="selectpicker" data-style="btn-primary" id="collectName" data-width="100%"
+                title="Select public data">
+        </select>
+    </div>
+    <div class="col-sm-12 col-lg-6">
+        <h2> Step 2: Select time period</h2>
+        <select class="selectpicker" data-style="btn-info" id="collectStartTime" data-width="47%"
+                title="Select start date" disabled="disabled" data-size="4">
+        </select>
+        <span> ~ </span>
+        <select class="selectpicker" data-style="btn-info" id="collectEndTime" data-width="47%"
+                title="Select end date" disabled="disabled" data-size="4">
+        </select>
+    </div>
+    <div class="col-sm-12 col-lg-12">
+        <h2> Step 3: Select Visualization key / value </h2>
+        <div style="margin-bottom:5px;">
+            <select class="selectpicker" data-style="btn-success" id="collectDataKey" data-width="98.5%"
+                    title="Select data key" disabled="disabled" data-size="4">
+            </select>
+        </div>
+        <select class="selectpicker" data-style="btn-success" id="collectKey" data-width="49%"
+                title="Select key" disabled="disabled" data-size="4">
+        </select>
+        <select class="selectpicker" data-style="btn-success" id="collectValue" data-width="49%"
+                title="Select value" disabled="disabled" data-size="4">
+        </select>
+    </div>
+
+    <div class="col-sm-12 col-lg-12">
+        <h2>Step 4: Select visualization chart type</h2>
+        <select class="selectpicker" data-style="btn btn-outline-primary" id="chartType" data-width="49%"
+                title="Select chart">
+            <option value="vBar">Vertical Bar</option>
+            <option value="hBar">Horizontal Bar</option>
+            <option value="line">Line</option>
+            <option value="area">Area</option>
+        </select>
+        <button type="button" class="btn btn-warning" data-text="Visualization" style="width:49%;">Start visualization</button>
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 col-lg-12">
+            <h2>Result</h2>
+            <pre id="jsonResult">
+
+            </pre>
+            <div id="chartVis">
+
+            </div>
+        </div>
     </div>
 
 </div>

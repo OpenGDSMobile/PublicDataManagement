@@ -71,7 +71,7 @@ $(function(){
     $('#collectDate').on('hidden.bs.select', function (){
        var selectedVal = $(this).find("option:selected").val().split(',');
         $.ajax({
-            url : contextRoot + 'api/MongoDB/' + selectedVal[0] + '/saveTime/' + selectedVal[1],
+            url : contextRoot + 'api/MongoDB/' + selectedVal[0] + '/saveTime/is/' + selectedVal[1],
             type : 'GET',
             success : function (evt){
                 var resultTag = $('#jsonResult');
