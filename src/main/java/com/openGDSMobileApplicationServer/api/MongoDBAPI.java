@@ -2,11 +2,9 @@ package com.openGDSMobileApplicationServer.api;
 
 import com.openGDSMobileApplicationServer.service.impl.MongoDBManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -30,20 +28,30 @@ public class MongoDBAPI {
         return service.findFieldCollection(name, fieldName);
     }
 
-    @RequestMapping (value="/{name}/{fieldName}/{queryType}/{query}", method = {RequestMethod.GET})
-    public Object findWhereCollection(@PathVariable String name, @PathVariable String fieldName, @PathVariable String queryType, @PathVariable String query){
-        return service.findWhereIsCollection(name, fieldName, query, queryType);
-    }
-
-    @RequestMapping (value="/{name}/fieldName}/gt/{gt}", method={RequestMethod.GET})
-    public List<Object> findWhereGtCollections(@PathVariable String name, @PathVariable String fieldName, @PathVariable String gt){
-        return null;
-    }
-
-
+    /**
+     *
+     * @param name
+     * @return
+     */
     @RequestMapping (value="/selectOne/{name}", method = {RequestMethod.GET})
     public Object findFirstCollection(@PathVariable String name){
+
         return service.findFirstCollection(name);
     }
 
+    /**
+     *
+     * @param name
+     * @param request [query type(is, gt, gte, lt, lte):queryType, search field:field, value:value,
+     *                (option) specific fields:sFields]
+     * @return
+     */
+    @RequestMapping (value="/query/{name}", method = {RequestMethod.GET})
+    public Object queryCollection(@PathVariable("name") String name, HttpServletRequest request){
+        String queryType = request.getParameter("queryType");
+        String field = request.getParameter("field");
+        String value = request.getParameter("value");
+        String sFields = request.getParameter("sFields");
+        return service.queryWhereCollection(name, queryType, field, value, sFields);
+    }
 }

@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,6 +61,8 @@ public class MongoDBManagementDAO {
     public List<Object> findAll(String name) {
         return mongoOperations.findAll(Object.class, name);
     }
+
+
         //BasicQuery query = new BasicQuery("{}, {_id:0, " + q + ":1}");
     public List<Object> findFieldQuery(String name, String q){
         Query query = new Query();
@@ -67,6 +70,42 @@ public class MongoDBManagementDAO {
         return mongoOperations.find(query, Object.class, name);
     }
 
+
+    public Object findFirstQuery(String name){
+        Query query = new Query();
+        return mongoOperations.findOne(query, Object.class, name);
+    }
+
+    public List<Object> findWhereQuery(String name, String queryType, String field, String q, String[] sFields){
+        Query query = new Query();
+        if (sFields !=null){
+            for (String value : sFields){
+                query.fields().include(value);
+            }
+        }
+        query = queryExec(query, queryType, field, q);
+        return mongoOperations.find(query, Object.class, name);
+    }
+
+    public Query queryExec(Query query, String queryType, String field, String q){
+
+        if (queryType.equals("is")){
+            query.addCriteria(Criteria.where(field).is(q));
+        } else if (queryType.equals("gte")){
+            query.addCriteria(Criteria.where(field).gte(q));
+        } else if (queryType.equals("gt")){
+            query.addCriteria(Criteria.where(field).gt(q));
+        } else if (queryType.equals("lt")){
+            query.addCriteria(Criteria.where(field).lt(q));
+        } else if (queryType.equals("lte")){
+            query.addCriteria(Criteria.where(field).lte(q));
+        }
+        return query;
+    }
+
+
+
+/*
     public List<Object> findWhereIsQuery(String name, String whereField, String q, String queryType) {
         Query query = new Query();
         if (queryType.equals("is")){
@@ -76,10 +115,6 @@ public class MongoDBManagementDAO {
         }
         return mongoOperations.find(query, Object.class, name);
     }
-
-    public Object findFirstQuery(String name){
-        Query query = new Query();
-        return mongoOperations.findOne(query, Object.class, name);
-    }
+    */
 
 }

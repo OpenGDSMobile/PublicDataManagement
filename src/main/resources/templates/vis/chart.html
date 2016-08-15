@@ -18,6 +18,7 @@
 
     <script th:src="@{/static/js/humane/humane.min.js}"/>
     <script th:src="@{/static/js/d3/d3.min.js}"/>
+    <script th:src="@{/static/js/opengdsmobile/openGDSMobile-2.0.js}"/>
 
     <script th:inline="javascript">
         var contextRoot = /*[[@{/}]]*/ '';
@@ -130,7 +131,7 @@
             <option value="line">Line</option>
             <option value="area">Area</option>
         </select>
-        <button type="button" class="btn btn-warning" data-text="Visualization" style="width:49%;">Start visualization</button>
+        <button id="visStart" type="button" class="btn btn-warning" data-text="Visualization" style="width:49%;">Start visualization</button>
 
     </div>
 

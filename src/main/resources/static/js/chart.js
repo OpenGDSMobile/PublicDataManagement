@@ -121,8 +121,15 @@ $(function(){
 
     $('#collectStartTime').on('hidden.bs.select', function (){
        var selectedVal = $(this).find("option:selected").val().split(',');
+        var jsonData = {
+            queryType : 'gte',
+            field : 'saveTime',
+            value : selectedVal[1],
+            sFields : 'saveTime'
+        };
        $.ajax({
-           url : contextRoot + 'api/MongoDB/' + selectedVal[0] + '/saveTime/gt/' + selectedVal[1],
+           url : contextRoot + 'api/MongoDB/query/' + selectedVal[0],
+           data : jsonData,
            type : 'GET',
            success : function (evt){
                 var selectObj = $('#collectEndTime');
@@ -136,7 +143,63 @@ $(function(){
                 });
                 selectObj.attr('disabled', false);
                 selectObj.selectpicker('refresh');
+           },
+           error : function(evt){
+               humane.log('Error Loading Collected Public Data. Please, confirm database connect.',{
+                   addnCls : 'humane-libnotify-error'
+               });
+               console.log(evt);
            }
        });
     });
+
+    $('#visStart').click(function(){
+        var name = $('#collectName').find('option:selected').val();
+        var startTime = $('#collectStartTime').find('option:selected').val().split(',')[1];
+        var endTime = $('#collectStartTime').find('option:selected').val().split(',')[1];
+        var dataKey = $('#collectDataKey').find('option:selected').val();
+        var chartKey = $('#collectKey').find('option:selected').val();
+        var chartValue = $('#collectValue').find('option:selected').val();
+        var chartType = $('#chartType').find('option:selected').val();
+        if (name == '' || startTime =='' || endTime =='' || dataKey =='' || chartKey=='' || chartValue =='' || chartType ==''){
+            humane.log('Error visualization processing. Because you did not enter value(s).',{
+                addnCls : 'humane-libnotify-error'
+            });
+            return -1;
+        }
+        var jsonData = {
+            queryType : 'is',
+            field : 'saveTime',
+            value : startTime,
+            sFields : dataKey + '.' + chartKey + ',' + dataKey + '.'  + chartValue
+        }
+        console.log(startTime);
+        $.ajax({
+            url : contextRoot + 'api/MongoDB/query/' + name,
+            data : jsonData,
+            success : function(evt){
+                var json = JSON.stringify(evt[0]);
+                console.log(evt[0]);
+                console.log(json);
+                var chart = new openGDSMobile.ChartVis(evt[0], {
+                    rootKey : 'row',
+                    labelKey : 'MSRSTE_NM',
+                    valueKey : 'PM25'
+                });
+                chart.vBarChart("chartVis");
+            },
+            error : function(evt){
+                humane.log('Error Loading Collected Public Data. Please, confirm database connect.',{
+                    addnCls : 'humane-libnotify-error'
+                });
+                console.log(evt);
+            }
+
+        });
+        /*
+        var visObj = new openGDSMobile.ChartVis()
+        */
+
+    });
+
 });

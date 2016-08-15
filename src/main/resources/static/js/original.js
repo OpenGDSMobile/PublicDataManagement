@@ -69,11 +69,19 @@ $(function(){
         })
     });
     $('#collectDate').on('hidden.bs.select', function (){
-       var selectedVal = $(this).find("option:selected").val().split(',');
+        var selectedVal = $(this).find("option:selected").val().split(',');
+        var jsonData = {
+            queryType : 'is',
+            field : 'saveTime',
+            value : selectedVal[1]
+        };
+
         $.ajax({
-            url : contextRoot + 'api/MongoDB/' + selectedVal[0] + '/saveTime/is/' + selectedVal[1],
+            url : contextRoot + 'api/MongoDB/query/' + selectedVal[0],
+            data : jsonData,
             type : 'GET',
             success : function (evt){
+
                 var resultTag = $('#jsonResult');
                 var JsonStr = JSON.stringify(evt, undefined, 4);
                 var resultStr = syntaxHighlight(JsonStr);
