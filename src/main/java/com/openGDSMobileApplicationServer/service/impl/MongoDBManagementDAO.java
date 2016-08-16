@@ -87,17 +87,22 @@ public class MongoDBManagementDAO {
         return mongoOperations.find(query, Object.class, name);
     }
 
+    public List<Object> findWhereMultiQuery(String name, String q){
+        Query query = new BasicQuery(q);
+        return mongoOperations.find(query, Object.class, name);
+    }
+
     public Query queryExec(Query query, String queryType, String field, String q){
 
-        if (queryType.equals("is")){
+        if (queryType.equals("=")){
             query.addCriteria(Criteria.where(field).is(q));
-        } else if (queryType.equals("gte")){
+        } else if (queryType.equals(">=")){
             query.addCriteria(Criteria.where(field).gte(q));
-        } else if (queryType.equals("gt")){
+        } else if (queryType.equals(">")){
             query.addCriteria(Criteria.where(field).gt(q));
-        } else if (queryType.equals("lt")){
+        } else if (queryType.equals("<")){
             query.addCriteria(Criteria.where(field).lt(q));
-        } else if (queryType.equals("lte")){
+        } else if (queryType.equals("<=")){
             query.addCriteria(Criteria.where(field).lte(q));
         }
         return query;

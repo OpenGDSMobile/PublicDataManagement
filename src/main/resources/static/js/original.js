@@ -41,7 +41,7 @@ $(function(){
         }
     });
 
-    $('#collectName').on('hidden.bs.select', function (e){
+    $('#collectName').on('changed.bs.select', function (e){
         var selectedText = $(this).find("option:selected").text();
 
         $.ajax({
@@ -68,7 +68,7 @@ $(function(){
             }
         })
     });
-    $('#collectDate').on('hidden.bs.select', function (){
+    $('#collectDate').on('changed.bs.select', function (){
         var selectedVal = $(this).find("option:selected").val().split(',');
         var jsonData = {
             queryType : 'is',

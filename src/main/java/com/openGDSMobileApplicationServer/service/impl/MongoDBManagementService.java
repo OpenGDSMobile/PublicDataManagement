@@ -42,6 +42,14 @@ public class MongoDBManagementService {
         return dao.findWhereQuery(name, queryType, field, value, result);
     }
 
+    public Object queryWhereMulti(String name, String q, String fields){
+        String resultQuery = null;
+
+
+
+        return dao.findWhereMultiQuery(name, resultQuery);
+    }
+
 /*
     public Object findWhereIsCollection(String name, String whereField, String isQuery, String queryType){
         return dao.findWhereIsQuery(name, whereField, isQuery, queryType);
