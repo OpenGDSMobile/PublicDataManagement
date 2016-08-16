@@ -1,5 +1,6 @@
 package com.openGDSMobileApplicationServer.service.impl;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,21 +34,46 @@ public class MongoDBManagementService {
     }
 
 
-    public Object queryWhereCollection(String name, String queryType, String field, String value, String fields){
+    public Object queryWhereCollection(String name, String queryType, String field, String value, String sFields){
         String[] result = null;
-        if (fields != null){
-            result = fields.split(",");
-        }
+        String[] queryTypes = queryType.split(",");
+        String[] searchFields = field.split(",");
+        String[] values = value.split(",");
 
-        return dao.findWhereQuery(name, queryType, field, value, result);
+        JSONObject query = new JSONObject();
+
+
+/*
+        for (String)*/
+
+/*
+        for (String v : queryTypes){
+
+        }*/
+
+
+        if (sFields != null){
+            result = sFields.split(",");
+        }
+/*
+        if (queryTypes.length == 1){
+            return dao.findWhereQuery(name, queryType, field, value, result);
+        } else {
+            return dao.findWhereQuery(name, queryType, field, value, result);
+        }
+*/
+    return null;
     }
 
     public Object queryWhereMulti(String name, String q, String fields){
         String resultQuery = null;
 
 
-
         return dao.findWhereMultiQuery(name, resultQuery);
+    }
+    public Object findValuesCollection(String name, String key){
+        return dao.findValueSearchQuery(name, key);
+
     }
 
 /*

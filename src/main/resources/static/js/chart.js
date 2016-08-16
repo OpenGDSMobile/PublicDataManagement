@@ -68,13 +68,19 @@ function collectNameEvt() {
             $('#collectDataKey').off('changed.bs.select');
             $('#collectDataKey').on('changed.bs.select', function () {
                 var selectedVal = $(this).find("option:selected").val();
-                var selectObj = $('#collectKey');
+                if (selectedVal == ''){
+                    return 0;
+                }
+
+
                 var selectObj1 = $('#collectValue');
                 var resultTag = $('#jsonResult');
                 var obj = evt[selectedVal][0];
-                selectObj.empty();
                 selectObj1.empty();
                 resultTag.empty();
+                if (obj == null){
+                    return 0;
+                }
                 if (typeof(obj) === 'undefined'){
                     humane.log('Not Visualization Key',{
                         addnCls : 'humane-libnotify-error'
@@ -82,17 +88,24 @@ function collectNameEvt() {
                     return -1;
                 }
 
-
                 for(key in obj) {
-                    selectObj.append('<option value="' + key + '">' + key + '</option>');
                     selectObj1.append('<option value="' + key + '">' + key + '</option>');
                     searchKey.append('<option value="' + key + '">' + key + '</option>');
                 }
 
+                var timeArray = $('#collectEndTime').find('option:selected').val().split(',');
+                if (timeArray[1] == timeArray[2]){
+                    var selectObj = $('#collectKey');
+                    selectObj.empty();
+                    for(key in obj) {
+                        selectObj.append('<option value="' + key + '">' + key + '</option>');
+                    }
+                    selectObj.attr('disabled', false);
+                    selectObj.selectpicker('refresh');
+                }
+
                 searchKey.on('changed.bs.select', searchKeyEvt);
 
-                selectObj.attr('disabled', false);
-                selectObj.selectpicker('refresh');
                 selectObj1.attr('disabled', false);
                 selectObj1.selectpicker('refresh');
                 searchKey.selectpicker('refresh');
@@ -100,10 +113,6 @@ function collectNameEvt() {
                 var JsonStr = JSON.stringify(obj, undefined, 4);
                 var resultStr = syntaxHighlight(JsonStr);
                 resultTag.html(resultStr + '<br> ...');
-
-
-
-
             });
         },
         error: function(evt){
@@ -116,7 +125,34 @@ function collectNameEvt() {
 };
 
 function searchKeyEvt(){
-    var searchValue = $('#collectSearchValue');
+    var name = $('#collectName').find("option:selected").val();
+    var dataKey = $('#collectDataKey').find("option:selected").val();
+    var keyValue = $(this).find("option:selected").val();
+    var jsonData = {
+        name: name,
+        key : dataKey + '.' + keyValue
+    };
+    $.ajax({
+        url : contextRoot + 'api/MongoDB/getValues',
+        type : 'GET',
+        data : jsonData,
+        success: function(evt){
+            var searchValue = $('#collectSearchValue');
+            searchValue.empty();
+            $.each(evt, function(index, value){
+                searchValue.append('<option value="' + value + '">' + value +'</option>');
+            });
+            searchValue.selectpicker('refresh');
+        },
+        error : function (evt){
+            humane.log('Error Loading Collected Public Data. Please, confirm database connect.',{
+                addnCls : 'humane-libnotify-error'
+            });
+            console.log(evt);
+        }
+
+    });
+
 
 
 
@@ -147,7 +183,7 @@ $(function(){
     $('#collectStartTime').on('changed.bs.select', function (){
        var selectedVal = $(this).find("option:selected").val().split(',');
        var jsonData = {
-            queryType : 'gte',
+            queryType : '>=',
             field : 'saveTime',
             value : selectedVal[1],
             sFields : 'saveTime'
@@ -184,23 +220,38 @@ $(function(){
         var name = $(this).find('option:selected').val().split(',')[0];
         var startVal = $(this).find('option:selected').val().split(',')[1];
         var endVal = $(this).find('option:selected').val().split(',')[2];
+        var dataKey =$('#collectDataKey');
         var searchKey = $('#collectSearchKey');
         var searchValue = $('#collectSearchValue');
-        var collectKey = $('#collectKey');
+        var chartLabel = $('#collectKey');
+        var chartValue = $('#collectValue');
 
         if (startVal == endVal){
             searchKey.selectpicker('hide');
             searchValue.selectpicker('hide');
-            /*
-            collectKey.attr('data-width','49%');
-            collectKey.selectpicker('render');*/
+
+            chartLabel.attr('disabled', true);
+            chartLabel.selectpicker('deselectAll');
+            chartLabel.selectpicker('refresh');
+
+            chartValue.attr('disabled',true);
+            chartValue.selectpicker('deselectAll');
+            chartValue.selectpicker('refresh');
+
+            dataKey.selectpicker('deselectAll');
+            dataKey.selectpicker('refresh');
             return 0;
         }
         searchKey.selectpicker('show');
         searchValue.selectpicker('show');
-        /*
-        collectKey.attr('data-width','21%');
-        collectKey.selectpicker('destory');*/
+
+        chartLabel.attr('disabled', false);
+        chartLabel.append('<option value="saveTime">saveTime</option>');
+        chartLabel.selectpicker('refresh');
+        chartLabel.selectpicker('val', 'saveTime');
+        chartLabel.attr('disabled', true);
+        chartLabel.selectpicker('refresh');
+
     });
 
     $('#visStart').click(function(){
@@ -217,19 +268,24 @@ $(function(){
             });
             return -1;
         }
-        var searchTime = startTime;
+        var searchWhere = startTime;
         var queryType = '=';
+        var searchField = 'saveTime';
+
         if (startTime != endTime) {
-            searchTime = searchTime + ',' + endTime;
-            queryType ='>=,<=';
+            searchWhere = searchWhere + ',' + endTime;
+            searchWhere = searchWhere + $('#collectSearchValue').find('option:selected').val();
+            queryType ='>=,<=,=';
+            searchField = searchField + ',saveTime,' + $('#collectSearchKey').find('option:selected').val();
         }
 
         var jsonData = {
             queryType : queryType,
-            field : 'saveTime',
-            value : searchTime,
+            field : searchField,
+            value : searchWhere,
             sFields : dataKey + '.' + chartKey + ',' + dataKey + '.'  + chartValue
         }
+        console.log(jsonData);
         $.ajax({
             url : contextRoot + 'api/MongoDB/query/' + name,
             data : jsonData,

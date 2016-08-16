@@ -1,5 +1,6 @@
 package com.openGDSMobileApplicationServer.service.impl;
 
+import com.mongodb.CommandResult;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,6 +91,11 @@ public class MongoDBManagementDAO {
     public List<Object> findWhereMultiQuery(String name, String q){
         Query query = new BasicQuery(q);
         return mongoOperations.find(query, Object.class, name);
+    }
+
+    public Object findValueSearchQuery(String name, String key){
+        CommandResult result = mongoOperations.executeCommand("{distinct: \"" + name + "\", key: \"" + key + "\"}");
+        return result.get("values");
     }
 
     public Query queryExec(Query query, String queryType, String field, String q){

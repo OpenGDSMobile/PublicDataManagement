@@ -1,6 +1,7 @@
 package com.openGDSMobileApplicationServer.api;
 
 import com.openGDSMobileApplicationServer.service.impl.MongoDBManagementService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +40,13 @@ public class MongoDBAPI {
         return service.findFirstCollection(name);
     }
 
+    @RequestMapping (value="/getValues", method = {RequestMethod.GET})
+    public Object runCommandGetValues(HttpServletRequest request){
+        String name = request.getParameter("name");
+        String key = request.getParameter("key");
+        return service.findValuesCollection(name, key);
+    }
+
     /**
      *
      * @param name
@@ -54,4 +62,5 @@ public class MongoDBAPI {
         String sFields = request.getParameter("sFields");
         return service.queryWhereCollection(name, queryType, field, value, sFields);
     }
+
 }
