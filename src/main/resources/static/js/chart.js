@@ -257,7 +257,7 @@ $(function(){
     $('#visStart').click(function(){
         var name = $('#collectName').find('option:selected').val();
         var startTime = $('#collectStartTime').find('option:selected').val().split(',')[1];
-        var endTime = $('#collectEndTime').find('option:selected').val().split(',')[1];
+        var endTime = $('#collectEndTime').find('option:selected').val().split(',')[2];
         var dataKey = $('#collectDataKey').find('option:selected').val();
         var chartKey = $('#collectKey').find('option:selected').val();
         var chartValue = $('#collectValue').find('option:selected').val();
@@ -271,19 +271,25 @@ $(function(){
         var searchWhere = startTime;
         var queryType = '=';
         var searchField = 'saveTime';
+        var unwind = null;
+        var sFields = dataKey + '.' + chartKey + ',' + dataKey + '.'  + chartValue;
 
         if (startTime != endTime) {
             searchWhere = searchWhere + ',' + endTime;
-            searchWhere = searchWhere + $('#collectSearchValue').find('option:selected').val();
+            searchWhere = searchWhere + ',' + $('#collectSearchValue').find('option:selected').val();
             queryType ='>=,<=,=';
-            searchField = searchField + ',saveTime,' + $('#collectSearchKey').find('option:selected').val();
+            searchField = searchField + ',saveTime,' + dataKey + '.' + $('#collectSearchKey').find('option:selected').val();
+            unwind = dataKey;
+            sFields = 'saveTime,' + dataKey + '.' + chartValue
         }
 
         var jsonData = {
+            name: name,
+            unwind : unwind,
             queryType : queryType,
             field : searchField,
             value : searchWhere,
-            sFields : dataKey + '.' + chartKey + ',' + dataKey + '.'  + chartValue
+            sFields : sFields
         }
         console.log(jsonData);
         $.ajax({
@@ -292,7 +298,9 @@ $(function(){
             success : function(evt){
                 $('#jsonResult').empty();
                 $('#chartVis').empty();
+
                 var json = JSON.stringify(evt[0]);
+
                 var chart = new openGDSMobile.ChartVis(json, {
                     rootKey : dataKey,
                     labelKey : chartKey,

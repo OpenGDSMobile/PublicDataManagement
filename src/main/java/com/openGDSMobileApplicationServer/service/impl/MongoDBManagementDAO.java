@@ -1,18 +1,24 @@
 package com.openGDSMobileApplicationServer.service.impl;
 
+import com.mongodb.AggregationOutput;
+import com.mongodb.BasicDBObject;
 import com.mongodb.CommandResult;
+import com.mongodb.DBObject;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.lang.Iterable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -88,9 +94,17 @@ public class MongoDBManagementDAO {
         return mongoOperations.find(query, Object.class, name);
     }
 
-    public List<Object> findWhereMultiQuery(String name, String q){
-        Query query = new BasicQuery(q);
-        return mongoOperations.find(query, Object.class, name);
+    public List<Object> findWhereMultiQuery(String name, List<DBObject> query){
+        AggregationOutput aggr= mongoOperations.getCollection(name).aggregate(query);
+        Iterable<DBObject> iter = aggr.results();
+        List<Object> result = new ArrayList<Object>();
+        DBObject root = new BasicDBObject();
+
+        for (DBObject obj : iter){
+           result.add(obj);
+
+        }
+        return result;
     }
 
     public Object findValueSearchQuery(String name, String key){

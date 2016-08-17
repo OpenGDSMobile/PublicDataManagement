@@ -50,7 +50,7 @@ public class MongoDBAPI {
     /**
      *
      * @param name
-     * @param request [query type(is, gt, gte, lt, lte):queryType, search field:field, value:value,
+     * @param request [query type{is(=), gt(>), gte(>=), lt(<), lte(<=)}:queryType, search field:field, value:value,
      *                (option) specific fields:sFields]
      * @return
      */
@@ -60,7 +60,8 @@ public class MongoDBAPI {
         String field = request.getParameter("field");
         String value = request.getParameter("value");
         String sFields = request.getParameter("sFields");
-        return service.queryWhereCollection(name, queryType, field, value, sFields);
+        String unwind = request.getParameter("unwind");
+        return service.queryWhereCollection(name, queryType, field, value, sFields, unwind);
     }
 
 }

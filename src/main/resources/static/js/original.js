@@ -71,7 +71,7 @@ $(function(){
     $('#collectDate').on('changed.bs.select', function (){
         var selectedVal = $(this).find("option:selected").val().split(',');
         var jsonData = {
-            queryType : 'is',
+            queryType : '=',
             field : 'saveTime',
             value : selectedVal[1]
         };
