@@ -6,17 +6,26 @@
     <meta name="viewport" content="width=device-width" />
 
     <link rel="stylesheet" th:href="@{/static/css/bootstrap/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap-select/bootstrap-select.min.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/humane/libnotify.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/main.css}"/>
+    <link src="stylesheet" th:href="@{/static/css/ol3/ol.css}"/>
 
     <script th:src="@{/static/js/jquery/jquery.min.js}"/>
     <script th:src="@{/static/js/bootstrap/bootstrap.min.js}"/>
+    <script th:src="@{/static/js/bootstrap-select/bootstrap-select.min.js}"/>
 
-    <script th:src="@{/static/js/main.js}"/>
+
+    <script th:src="@{/static/js/humane/humane.min.js}"/>
+    <script th:src="@{/static/js/d3/d3.min.js}"/>
+    <script th:src="@{/static/js/ol3/ol.js}"/>
+    <script th:src="@{/static/js/opengdsmobile/openGDSMobile-2.0.js}"/>
 
     <script th:inline="javascript">
         var contextRoot = /*[[@{/}]]*/ '';
-        console.log(contextRoot);
     </script>
+
+    <script th:src="@{/static/js/map.js}"/>
 
     <title>Public Data Management Dashboard</title>
 </head>
@@ -82,6 +91,17 @@
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
     <div class="row" style="padding-bottom: 20px;">
         <h1>Data Visualization (Map) </h1>
+    </div>
+    <div class="row">
+        <h2> Select Geo-based Data</h2>
+        <select class="selectpicker" data-style="btn-primary" id="geoBasedName" data-width="100%"
+                title="GeoServer or Public Data">
+        </select>
+    </div>
+    <div class="row">
+        <div id="visMap" style="width:100%; height: 500px;">
+
+        </div>
     </div>
 
 </div>
