@@ -5,6 +5,7 @@ import it.geosolutions.geoserver.rest.GeoServerRESTPublisher;
 import it.geosolutions.geoserver.rest.GeoServerRESTReader;
 import it.geosolutions.geoserver.rest.manager.GeoServerRESTStoreManager;
 import it.geosolutions.geoserver.rest.manager.GeoServerRESTStyleManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class GeoServerManagementService {
 
-    public GeoServerManagementService() {
+    @Autowired
+    GeoServerManagementDAO dao;
 
+    public Object getDSLayers(String workspace){
+        return dao.getWSLayers(workspace);
     }
 }

@@ -1,8 +1,13 @@
 package com.openGDSMobileApplicationServer.service.impl;
 
+import com.openGDSMobileApplicationServer.service.DataCollectedManagement;
 import it.geosolutions.geoserver.rest.GeoServerRESTManager;
 import it.geosolutions.geoserver.rest.GeoServerRESTPublisher;
 import it.geosolutions.geoserver.rest.GeoServerRESTReader;
+import it.geosolutions.geoserver.rest.decoder.RESTDataStore;
+import it.geosolutions.geoserver.rest.decoder.RESTFeatureTypeList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
@@ -16,13 +21,16 @@ import java.net.URL;
  */
 @Repository
 public class GeoServerManagementDAO {
-    String RESTURL = "http://localhost:8080/geoserver";
+    Logger log = LoggerFactory.getLogger(GeoServerManagementDAO.class);
+
+    String RESTURL = "http://113.198.80.9:8080/geoserver";
     String RESTUSER = "admin";
     String RESTRW = "geoserver";
 
     GeoServerRESTReader reader;
     GeoServerRESTPublisher publisher;
     GeoServerRESTManager manager;
+
     /*GeoServerRESTStoreManager storeManager;
     GeoServerRESTStyleManager styleManager;*/
 
@@ -48,6 +56,11 @@ public class GeoServerManagementDAO {
         }
         return false;
     }
+    public Object getWSLayers(String workspace){
+        RESTFeatureTypeList list = reader.getFeatureTypes(workspace);
+        return list;
+    }
+
     //http://suite.opengeo.org/docs/latest/dataadmin/pgGettingStarted/shp2pgsql.html
     //https://github.com/geosolutions-it/geoserver-manager/wiki
     //http://docs.geoserver.org/2.8.x/en/user/rest/api/index.html
