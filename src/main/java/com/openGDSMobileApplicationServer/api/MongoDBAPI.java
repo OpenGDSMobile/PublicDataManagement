@@ -24,6 +24,12 @@ public class MongoDBAPI {
     }
 
 
+    /**
+     *
+     * @param name collection name
+     * @param fieldName key value
+     * @return
+     */
     @RequestMapping (value="/{name}/{fieldName}", method = {RequestMethod.GET})
     public List<Object> findAllFieldCollection(@PathVariable String name, @PathVariable String fieldName){
         return service.findFieldCollection(name, fieldName);
@@ -31,7 +37,7 @@ public class MongoDBAPI {
 
     /**
      *
-     * @param name
+     * @param name  get first value
      * @return
      */
     @RequestMapping (value="/selectOne/{name}", method = {RequestMethod.GET})
@@ -40,6 +46,11 @@ public class MongoDBAPI {
         return service.findFirstCollection(name);
     }
 
+    /**
+     *
+     * @param request  get Value based on (collection name, key)
+     * @return
+     */
     @RequestMapping (value="/getValues", method = {RequestMethod.GET})
     public Object runCommandGetValues(HttpServletRequest request){
         String name = request.getParameter("name");

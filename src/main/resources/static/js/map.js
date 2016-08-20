@@ -1,6 +1,7 @@
 var mapObj;
 var geoServerAddr = 'http://113.198.80.9/geoserver/';
 var workspace = 'OpenGDSMobile';
+var publicData = null;
 
 function geoDataSelectEvt(){
     var selected = $(this).find("option:selected");
@@ -12,9 +13,16 @@ function geoDataSelectEvt(){
         for (var i=1; i<mapObjs.length; i++){
             mapObj.removeLayer(mapObjs[i].get('title'));
         }
+
     }
+    var lat = $('#latValue');
+    var long = $('#longValue');
+    var coord = $('#coordValue');
 
     if (selectGroup == 'GeoServer') {
+        lat.selectpicker('hide');
+        long.selectpicker('hide');
+        coord.selectpicker('hide');
         var serviceStr = 'wfs?service=WFS&version=1.1.0&request=GetFeature&' +
                          'typeNames=' + workspace + ':' +selectVal + '&outputFormat=json&srsname=EPSG:3857';
         var requestAddr = geoServerAddr + serviceStr;
@@ -24,14 +32,68 @@ function geoDataSelectEvt(){
             type : 'GET',
             dataType : 'json',
             success : function (evt){
+                console.log(evt);
                 mapObj.addGeoJSONLayer(evt, 'polygon', selectVal, {
-                   attrKey : 'sig_kor_nm',
-                    fillColor: '#FF00FF'
+                   /*attrKey : 'sig_kor_nm',*/
+                   fillColor: '#FF00FF'
                 });
             }
         })
-    }
+    } else if (selectGroup == 'Public Data') {
+        lat.selectpicker('show');
+        long.selectpicker('show');
+        coord.selectpicker('show');
+        $.ajax({
+            url: contextRoot + 'api/MongoDB/selectOne/' + selectVal,
+            type: 'GET',
+            success: function (evt) {
+                console.log(evt);
+                for(key in evt['row'][0]) {
+                    lat.append('<option value="' + key + '">' + key + '</option>');
+                    long.append('<option value="' + key + '">' + key + '</option>');
+                    /*console.log(evt[key].length);*/
+                }
 
+                lat.selectpicker('refresh');
+                long.selectpicker('refresh');
+
+                publicData = evt['row'];
+            },
+            error: function (evt){
+
+            }
+        });
+    }
+}
+
+function publicDataVisEvt(){
+    /*
+    $(this).removeClass('btn-danger');
+    $(this).addClass('btn-success');
+    $(this).selectpicker('refresh');
+    */
+    console.log($(this));
+    var lat = $('#latValue').find('option:selected').val();
+    var long = $('#longValue').find('option:selected').val();
+    var coord = $('#coordValue').find('option:selected').val();
+
+    if (lat != '' && long != '' && coord != '') {
+
+        var geoJsonData = GeoJSON.parse(publicData, {Point: [lat, long]});
+        console.log(geoJsonData);
+        var test = new ol.layer.Vector({
+            title: 'test',
+            source : new ol.source.Vector({
+                features : (new ol.format.GeoJSON()).readFeatures(geoJsonData, {
+                    featureProjection: 'EPSG:3857',
+                    dataProjection: 'EPSG:4326'
+                })
+            }),
+            projection: 'EPSG:3857'
+        });
+        console.log(test.getSource().getFeatures());
+        mapObj.getMapObj().addLayer(test);
+    }
 
 }
 
@@ -55,6 +117,8 @@ $(function(){
                 addnCls : 'humane-libnotify-error'
             });
             console.log(evt);
+
+
         }
 
     });
@@ -80,5 +144,6 @@ $(function(){
 
     $('#geoBasedName').on('changed.bs.select', geoDataSelectEvt);
 
+    $('.add-values').on('changed.bs.select', publicDataVisEvt);
 
 });

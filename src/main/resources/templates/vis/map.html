@@ -18,8 +18,10 @@
 
     <script th:src="@{/static/js/humane/humane.min.js}"/>
     <script th:src="@{/static/js/d3/d3.min.js}"/>
-    <script th:src="@{/static/js/ol3/ol.js}"/>
+    <script th:src="@{/static/js/ol3/ol-debug.js}"/>
+    <script th:src="@{/static/js/geojson.min.js}"/>
     <script th:src="@{/static/js/opengdsmobile/openGDSMobile-2.0.js}"/>
+
 
     <script th:inline="javascript">
         var contextRoot = /*[[@{/}]]*/ '';
@@ -104,7 +106,25 @@
             </optgroup>
         </select>
     </div>
-    <div class="row">
+    <div class="row" id="addValues"  style="margin-bottom:20px;">
+        <select class="bs-select-hidden add-values" data-style="btn-success" id="latValue" data-width="40%"
+                title="Select latitude field" data-size="4">
+        </select>
+
+        <select class="bs-select-hidden add-values" data-style="btn-success" id="longValue" data-width="40%"
+                title="Select longitude field" data-size="4">
+        </select>
+
+        <select class="bs-select-hidden add-values" data-style="btn-success" id="coordValue" data-width="15%"
+                title="Select coordinate type(EPSG)" data-size="4">
+            <option value="3857">EPSF:3857(Spherical Mercator)</option>
+            <option value="4326">EPSG:4326(WFS84)</option>
+            <option value="4949">EPSG:4949(ITRF2000)</option>
+        </select>
+
+    </div>
+
+    <div class="row" >
         <div id="visMap" style="width:95%; height: 500px;">
 
         </div>
