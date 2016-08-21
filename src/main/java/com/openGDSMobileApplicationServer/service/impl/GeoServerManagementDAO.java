@@ -23,7 +23,8 @@ import java.net.URL;
 public class GeoServerManagementDAO {
     Logger log = LoggerFactory.getLogger(GeoServerManagementDAO.class);
 
-    String RESTURL = "http://113.198.80.9:8080/geoserver";
+    //String RESTURL = "http://113.198.80.9:8080/geoserver";
+    String RESTURL = "http://localhost:8080/geoserver";
     String RESTUSER = "admin";
     String RESTRW = "geoserver";
 

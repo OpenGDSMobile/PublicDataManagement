@@ -18,7 +18,8 @@ function geoDataSelectEvt(){
     var lat = $('#latValue');
     var long = $('#longValue');
     var coord = $('#coordValue');
-
+    lat.empty();
+    long.empty();
     if (selectGroup == 'GeoServer') {
         lat.selectpicker('hide');
         long.selectpicker('hide');
@@ -72,26 +73,40 @@ function publicDataVisEvt(){
     $(this).addClass('btn-success');
     $(this).selectpicker('refresh');
     */
-    console.log($(this));
     var lat = $('#latValue').find('option:selected').val();
     var long = $('#longValue').find('option:selected').val();
     var coord = $('#coordValue').find('option:selected').val();
 
+
     if (lat != '' && long != '' && coord != '') {
 
+        for(var key in publicData){
+            for(var subKey in publicData[key]){
+                if (subKey == lat || subKey == long) {
+                    publicData[key][subKey] = Number(publicData[key][subKey]);
+                }
+            }
+        }
         var geoJsonData = GeoJSON.parse(publicData, {Point: [lat, long]});
-        console.log(geoJsonData);
+/*
+        var epsg4919 = new ol.proj.Projection({
+            code : 'EPSG:4919',
+            extent : [-557746.21, -973.45, -557746.21, 973.45],
+            units : 'm'
+        });
+        ol.proj.addProjection(epsg4919);
+        console.log(ol.proj.get('EPSG:4919'));
+*/
+
         var test = new ol.layer.Vector({
             title: 'test',
             source : new ol.source.Vector({
                 features : (new ol.format.GeoJSON()).readFeatures(geoJsonData, {
-                    featureProjection: 'EPSG:3857',
-                    dataProjection: 'EPSG:4326'
+                    dataProjection: coord,
+                    featureProjection: ol.proj.get('EPSG:3857')
                 })
-            }),
-            projection: 'EPSG:3857'
+            })
         });
-        console.log(test.getSource().getFeatures());
         mapObj.getMapObj().addLayer(test);
     }
 
