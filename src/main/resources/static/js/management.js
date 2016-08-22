@@ -50,7 +50,7 @@ $(function() {
             url : contextRoot + "api/Collected/" + name,
             type : 'DELETE',
             success : function (){
-                humane.log('Complete ' + text + 'Delete Public Data');
+                humane.log('Complete ' + name + 'Delete Public Data');
                 location.reload(true);
             },
             error : function (evt){

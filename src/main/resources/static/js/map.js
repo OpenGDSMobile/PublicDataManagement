@@ -18,12 +18,14 @@ function geoDataSelectEvt(){
     var lat = $('#latValue');
     var long = $('#longValue');
     var coord = $('#coordValue');
+    var type = $('#typeValue');
     lat.empty();
     long.empty();
     if (selectGroup == 'GeoServer') {
         lat.selectpicker('hide');
         long.selectpicker('hide');
         coord.selectpicker('hide');
+        type.selectpicker('hide');
         var serviceStr = 'wfs?service=WFS&version=1.1.0&request=GetFeature&' +
                          'typeNames=' + workspace + ':' +selectVal + '&outputFormat=json&srsname=EPSG:3857';
         var requestAddr = geoServerAddr + serviceStr;
@@ -44,6 +46,7 @@ function geoDataSelectEvt(){
         lat.selectpicker('show');
         long.selectpicker('show');
         coord.selectpicker('show');
+        type.selectpicker('show');
         $.ajax({
             url: contextRoot + 'api/MongoDB/selectOne/' + selectVal,
             type: 'GET',
@@ -52,7 +55,6 @@ function geoDataSelectEvt(){
                 for(key in evt['row'][0]) {
                     lat.append('<option value="' + key + '">' + key + '</option>');
                     long.append('<option value="' + key + '">' + key + '</option>');
-                    /*console.log(evt[key].length);*/
                 }
 
                 lat.selectpicker('refresh');
@@ -73,12 +75,14 @@ function publicDataVisEvt(){
     $(this).addClass('btn-success');
     $(this).selectpicker('refresh');
     */
+    var name = $('#geoBasedName').find('option:selected').val();
     var lat = $('#latValue').find('option:selected').val();
     var long = $('#longValue').find('option:selected').val();
     var coord = $('#coordValue').find('option:selected').val();
+    var type = $('#typeValue').find('option:selected').val();
 
 
-    if (lat != '' && long != '' && coord != '') {
+    if (lat != '' && long != '' && coord != '' && type != '') {
 
         for(var key in publicData){
             for(var subKey in publicData[key]){
@@ -88,26 +92,12 @@ function publicDataVisEvt(){
             }
         }
         var geoJsonData = GeoJSON.parse(publicData, {Point: [lat, long]});
-/*
-        var epsg4919 = new ol.proj.Projection({
-            code : 'EPSG:4919',
-            extent : [-557746.21, -973.45, -557746.21, 973.45],
-            units : 'm'
-        });
-        ol.proj.addProjection(epsg4919);
-        console.log(ol.proj.get('EPSG:4919'));
-*/
 
-        var test = new ol.layer.Vector({
-            title: 'test',
-            source : new ol.source.Vector({
-                features : (new ol.format.GeoJSON()).readFeatures(geoJsonData, {
-                    dataProjection: coord,
-                    featureProjection: ol.proj.get('EPSG:3857')
-                })
-            })
+        console.log(geoJsonData.features[0]);
+        mapObj.addGeoJSONLayer(geoJsonData, type, name, {
+            dataProj : coord,
+            fillColor : '#FF0000'
         });
-        mapObj.getMapObj().addLayer(test);
     }
 
 }
