@@ -15,7 +15,7 @@ function collectedListRequest() {
                 indexTableTag.append('<tr>' +
                     '<td>' + (value.name) + '</td>' +
                     '<td>' + (value.provider) + '</td>' +
-                    '<td>' + (value.url) + '</td>' +
+                    /*'<td>' + (value.url) + '</td>' +*/
                     '<td>' + (value.ep) + '</td>' +
                     '<td>' + (value.time) + '</td>' +
                     '<td>' + (value.keys) + '</td>' +

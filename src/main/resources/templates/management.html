@@ -22,7 +22,7 @@
 
     <script th:src="@{/static/js/management.js}"/>
 
-    <title>Public Data Management Dashboard</title>
+    <title th:text="#{common.title}">Dashboard for Open Data Management</title>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -34,7 +34,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><span>Public Data</span> Management Dashboard</a>
+            <a class="navbar-brand" href="#"><span th:text="#{common.title_1}">Dashboard for</span>
+                <span class="blue" th:text="#{common.title_2}">Open Data</span>
+                <span th:text="#{common.title_3}">Management</span>
+            </a>
         </div>
     </div>
 </nav>
@@ -44,39 +47,39 @@
         <li class="active">
             <a th:href="@{/}">
                 <span class="glyphicon glyphicon-off icon"></span>
-                Dashboard
+                <span th:text="#{common.menu.dashboard}">Dashboard</span>
             </a>
         </li>
         <li>
             <a th:href="@{/management}">
                 <span class="glyphicon glyphicon-scale icon"></span>
-                Collect Management
+                <span th:text="#{common.menu.cm}">Collect Management Process</span>
             </a>
         </li>
         <li class="parent">
             <a href="#">
                     <span data-toggle="collapse" href="#sub-item-1">
                         <span class="glyphicon glyphicon-chevron-down icon"></span>
-                        Visualization
+                        <span th:text="#{common.menu.vis}">Visualization</span>
                     </span>
             </a>
             <ul class="children collapse" id="sub-item-1">
                 <li>
                     <a th:href="@{/original}">
                         <span class="glyphicon glyphicon-list-alt icon"></span>
-                        Original
+                        <span th:text="#{common.menu.src}">Source</span>
                     </a>
                 </li>
                 <li>
                     <a th:href="@{/chart}">
                         <span class="glyphicon glyphicon-signal icon"></span>
-                        Chart
+                        <span th:text="#{common.menu.chart}">Chart</span>
                     </a>
                 </li>
                 <li>
                     <a th:href="@{/map}">
                         <span class="glyphicon glyphicon-globe icon"></span>
-                        Map
+                        <span th:text="#{common.menu.map}">Map</span>
                     </a>
                 </li>
             </ul>
@@ -86,26 +89,26 @@
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 
     <div class="row" style="padding-bottom: 20px;">
-        <h1>Management about collection of public data (Add / Start / Stop / Delete) </h1>
+        <h1 th:text="#{management.title}">Collection management of open data</h1>
     </div>
 
     <div class="row">
         <div style="padding-bottom: 10px; margin-left:20px; margin-right:20px;">
             <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-text="Add"
-                    data-header='Add Collect Public Data' data-target="#infoModal">Public Data Add</button>
+                    data-header='Add Collect Public Data' data-target="#infoModal" th:text="#{management.button1}">Add public data</button>
         </div>
         <div class="table-responsive">
             <table class="table" id="managementTable">
                 <thead>
                 <tr>
-                    <th>Public data name</th>
-                    <th>Provider</th>
-                    <th>Provider URL</th>
-                    <th>End-Point</th>
-                    <th>Time(Per)</th>
-                    <th>Parameters</th>
-                    <th>Collecting</th>
-                    <th>Edit</th>
+                    <th th:text="#{management.table.name}">Name of open data</th>
+                    <th th:text="#{management.table.provider}">Provider</th>
+                    <!--<th th:text="#{management.table.proURL}">Provider URL</th>-->
+                    <th th:text="#{management.table.endpoint}">End-Point</th>
+                    <th th:text="#{management.table.time}">Time(Per)</th>
+                    <th th:text="#{management.table.param}">Parameters</th>
+                    <th th:text="#{management.table.status}">Collecting</th>
+                    <th th:text="#{management.table.edit}">Edit</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -139,35 +142,35 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <label for="modalName">Public data name :</label>
+                        <label for="modalName" th:text="#{management.table.name}">Name of open data :</label>
                         <div style="margin-left:10px;"><input type="text" class="form-control" id="modalName"/></div>
                     </div>
                     <div class="row">
-                        <label for="modalProvider">Provider :</label>
+                        <label for="modalProvider" th:text="#{management.table.provider}">Provider :</label>
                         <div style="margin-left:10px;"><input type="text" class="form-control" id="modalProvider"/></div>
                     </div>
                     <div class="row">
-                        <label for="modalUrl">Provider URL :</label>
+                        <label for="modalUrl" th:text="#{management.table.proURL}">Provider URL :</label>
                         <div style="margin-left:10px;"><input type="text" class="form-control" id="modalUrl"/></div>
                     </div>
                     <div class="row">
-                        <label for="modalEp">End-Point :</label>
+                        <label for="modalEp" th:text="#{management.table.endpoint}">Collection end-point :</label>
                         <div style="margin-left:10px;"><input type="text" class="form-control" id="modalEp"/></div>
                     </div>
                     <div class="row">
-                        <label for="modalTime">Time :</label>
+                        <label for="modalTime" th:text="#{management.table.time}">Time (unit: minute) :</label>
                         <div style="margin-left:10px;"><input type="text" class="form-control" id="modalTime"/></div>
                     </div>
                     <div class="row">
-                        <label for="modalKeys">Keys :</label>
+                        <label for="modalKeys" th:text="#{management.table.param}">Parameters :</label>
                         <div style="margin-left:10px;"><input type="text" class="form-control" id="modalKeys"/></div>
                     </div>
                     <div class="row">
-                        <label for="modalComment">Comment :</label>
+                        <label for="modalComment" th:text="#{management.table.remark}">Remark :</label>
                         <div style="margin-left:10px;"><textarea class="form-control" row="5" id="modalComment"/></div>
                     </div>
                     <div class="row">
-                        <label for="modalStatus">Status :</label>
+                        <label for="modalStatus"  th:text="#{management.table.status}">Collecting stage :</label>
                         <select class="form-control" id="modalStatus">
                             <option value="true">True</option>
                             <option value="false">False</option>
@@ -176,8 +179,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary btn-save" id="saveBtn">Add </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"  th:text="#{button.close}">Close</button>
+                    <button type="button" class="btn btn-primary btn-save" id="saveBtn" th:text="#{button.add}">Add </button>
                 </div>
             </div>
         </div>

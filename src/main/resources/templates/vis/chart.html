@@ -26,7 +26,7 @@
 
     <script th:src="@{/static/js/chart.js}"/>
 
-    <title>Public Data Management Dashboard</title>
+    <title th:text="#{common.title}">Dashboard for Open Data Management</title>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -38,7 +38,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><span>Public Data</span> Management Dashboard</a>
+            <a class="navbar-brand" href="#"><span th:text="#{common.title_1}">Dashboard for</span>
+                <span class="blue" th:text="#{common.title_2}">Open Data</span>
+                <span th:text="#{common.title_3}">Management</span>
+            </a>
         </div>
     </div>
 </nav>
@@ -48,39 +51,39 @@
         <li class="active">
             <a th:href="@{/}">
                 <span class="glyphicon glyphicon-off icon"></span>
-                Dashboard
+                <span th:text="#{common.menu.dashboard}">Dashboard</span>
             </a>
         </li>
         <li>
             <a th:href="@{/management}">
                 <span class="glyphicon glyphicon-scale icon"></span>
-                Collect Management
+                <span th:text="#{common.menu.cm}">Collect Management Process</span>
             </a>
         </li>
         <li class="parent">
             <a href="#">
                     <span data-toggle="collapse" href="#sub-item-1">
                         <span class="glyphicon glyphicon-chevron-down icon"></span>
-                        Visualization
+                        <span th:text="#{common.menu.vis}">Visualization</span>
                     </span>
             </a>
             <ul class="children collapse" id="sub-item-1">
                 <li>
                     <a th:href="@{/original}">
                         <span class="glyphicon glyphicon-list-alt icon"></span>
-                        Original
+                        <span th:text="#{common.menu.src}">Source</span>
                     </a>
                 </li>
                 <li>
                     <a th:href="@{/chart}">
                         <span class="glyphicon glyphicon-signal icon"></span>
-                        Chart
+                        <span th:text="#{common.menu.chart}">Chart</span>
                     </a>
                 </li>
                 <li>
                     <a th:href="@{/map}">
                         <span class="glyphicon glyphicon-globe icon"></span>
-                        Map
+                        <span th:text="#{common.menu.map}">Map</span>
                     </a>
                 </li>
             </ul>
@@ -89,16 +92,16 @@
 </div>
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
     <div class="row" style="padding-bottom: 20px;">
-        <h1>Data Visualization (Chart) </h1>
+        <h1 th:text="#{chart.title}">Data Visualization (Chart) </h1>
     </div>
     <div class="col-sm-12 col-lg-6">
-        <h2> Step 1: Select public data</h2>
+        <h2 th:text="#{chart.step1}"> Step 1: Selecting open data</h2>
         <select class="selectpicker" data-style="btn-primary" id="collectName" data-width="100%"
                 title="Select public data">
         </select>
     </div>
     <div class="col-sm-12 col-lg-6">
-        <h2> Step 2: Select time period</h2>
+        <h2  th:text="#{chart.step2}"> Step 2: Selecting period of open data</h2>
         <select class="selectpicker" data-style="btn-info" id="collectStartTime" data-width="47%"
                 title="Select start date" disabled="disabled" data-size="4">
         </select>
@@ -108,7 +111,7 @@
         </select>
     </div>
     <div class="col-sm-12 col-lg-12">
-        <h2> Step 3: Select Visualization key / value </h2>
+        <h2 th:text="#{chart.step3}"> Step 3: Selecting key/value </h2>
         <div style="margin-bottom:5px;">
             <select class="selectpicker" data-style="btn-success" id="collectDataKey" data-width="98.5%"
                     title="Select data key" disabled="disabled" data-size="4">
@@ -133,21 +136,22 @@
     </div>
 
     <div class="col-sm-12 col-lg-12">
-        <h2>Step 4: Select visualization chart type</h2>
+        <h2  th:text="#{chart.step4}">Step 4: Selecting chart type</h2>
         <select class="selectpicker" data-style="btn btn-outline-primary" id="chartType" data-width="49%"
                 title="Select chart">
-            <option value="vBar">Vertical Bar</option>
-            <option value="hBar">Horizontal Bar</option>
-            <option value="line">Line</option>
-            <option value="area">Area</option>
+            <option value="vBar" th:text="#{chart.vbar}">Vertical Bar</option>
+            <option value="hBar" th:text="#{chart.hbar}">Horizontal Bar</option>
+            <option value="line" th:text="#{chart.line}">Line</option>
+            <option value="area" th:text="#{chart.area}">Area</option>
         </select>
-        <button id="visStart" type="button" class="btn btn-warning" data-text="Visualization" style="width:49%;">Start visualization</button>
+        <button id="visStart" type="button" class="btn btn-warning" data-text="Visualization" style="width:49%;"
+                th:text="#{chart.button1}">Show visualization</button>
 
     </div>
 
     <div class="row">
         <div class="col-sm-12 col-lg-12">
-            <h2>Result</h2>
+            <h2 th:text="#{chart.result}">Show Result</h2>
             <div style="height:600px; outline: 1px solid #CCCCCC; padding: 5px; margin: 5px;" id="resultDiv">
                 <pre id="jsonResult" >
 
