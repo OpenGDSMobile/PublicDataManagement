@@ -20,7 +20,8 @@
       "css": "static/css",
       "js": "static/js",
       "map": "static/js",
-      "woff": "static/fonts"
+      "woff": "static/css/fonts",
+      "woff2": "static/css/fonts"
     },
     "sources": {
       "jquery": [
@@ -41,7 +42,8 @@
       "bootstrap": [
         "public/bower_components/bootstrap/dist/css/bootstrap.min.css",
         "public/bower_components/bootstrap/dist/js/bootstrap.min.js",
-        "public/bower_components/bootstrap/fonts/glyphicons-halflings-regular.woff"
+        "public/bower_components/bootstrap/fonts/glyphicons-halflings-regular.woff",
+        "public/bower_components/bootstrap/fonts/glyphicons-halflings-regular.woff2"
       ],
       "ladda": [
         "public/bower_components/ladda/dist/ladda.jquery.min.js",

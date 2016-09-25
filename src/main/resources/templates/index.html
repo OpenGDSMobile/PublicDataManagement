@@ -6,21 +6,134 @@
     <meta name="viewport" content="width=device-width" />
 
     <link rel="stylesheet" th:href="@{/static/css/bootstrap/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/humane/libnotify.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/main.css}"/>
 
     <script th:src="@{/static/js/jquery/jquery.min.js}"/>
     <script th:src="@{/static/js/bootstrap/bootstrap.min.js}"/>
 
-    <script th:src="@{/static/js/main.js}"/>
+
+    <script th:src="@{/static/js/humane/humane.min.js}"/>
+
+
 
     <script th:inline="javascript">
         var contextRoot = /*[[@{/}]]*/ '';
-        console.log(contextRoot);
     </script>
 
-    <title>Public Data Management Dashboard</title>
+    <script th:src="@{/static/js/main.js}"/>
+
+    <title th:text="#{common.title}">Dashboard for Open Data Management</title>
 </head>
 <body>
-    Template.... (ing) About
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#siderbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><span th:text="#{common.title_1}">Dashboard for</span>
+                                                <span class="blue" th:text="#{common.title_2}">Open Data</span>
+                                                <span th:text="#{common.title_3}">Management</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+        <div class="brand"><img th:src="@{/static/images/logo_hansung.png}" width="120px"/></div>
+        <ul class="nav menu">
+            <li class="active">
+                <a th:href="@{/}">
+                    <span class="glyphicon glyphicon-off icon"></span>
+                    <span th:text="#{common.menu.dashboard}">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/management}">
+                    <span class="glyphicon glyphicon-scale icon"></span>
+                    <span th:text="#{common.menu.cm}">Collect Management Process</span>
+                </a>
+            </li>
+            <li class="parent">
+                <a href="#">
+                    <span data-toggle="collapse" href="#sub-item-1">
+                        <span class="glyphicon glyphicon-chevron-down icon"></span>
+                        <span th:text="#{common.menu.vis}">Visualization</span>
+                    </span>
+                </a>
+                <ul class="children collapse" id="sub-item-1">
+                    <li>
+                        <a th:href="@{/original}">
+                            <span class="glyphicon glyphicon-list-alt icon"></span>
+                            <span th:text="#{common.menu.src}">Source</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/chart}">
+                            <span class="glyphicon glyphicon-signal icon"></span>
+                            <span th:text="#{common.menu.chart}">Chart</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/map}">
+                            <span class="glyphicon glyphicon-globe icon"></span>
+                            <span th:text="#{common.menu.map}">Map</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="col-sm-9 col-sm-offset-2 col-lg-10 col-lg-offset-2 main">
+        <div class="row" style="padding-bottom: 20px;">
+            <h1 th:text="#{main.title}">Status of open data collected</h1>
+        </div>
+        <div class="row"  style="padding-bottom: 50px;">
+            <div>
+                <span th:text="#{main.reg}">Registered open data</span> : <span id="totalCollected" style="margin-right:10px;"></span>
+
+                <span th:text="#{main.run}">Number of collecting data</span> : <span id="trueCollected" style="margin-right:10px;"></span>
+
+                <span th:text="#{main.stop}">Number of non-collecting data</span> : <span id="falseCollected"></span>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table" id="indexTable">
+                    <thead>
+                        <tr>
+                            <th th:text="#{main.table.num}">Num</th>
+                            <th th:text="#{main.table.name}">Name of open data</th>
+                            <th th:text="#{main.table.provider}">Provider</th>
+                            <th th:text="#{main.table.proURL}">Provider URL</th>
+                            <!--<th th:text="#{main.table.endpoint}">Collection end-point</th>-->
+                            <th th:text="#{main.table.time}">Time(unit: minute)</th>
+                            <th th:text="#{main.table.remark}">Remark</th>
+                            <th th:text="#{main.table.status}">Collecting stage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <!--
+                        <tr>&lt;!&ndash;test data&ndash;&gt;
+                            <td>1</td>
+                            <td>Seoul Environment in Korea</td>
+                            <td>Seoul</td>
+                            <td>data.seoul.go.kr</td>
+                            <td>http://openAPI.seoul.go.kr:8088</td>
+                            <td>1 Hour</td>
+                            <td>ON</td>
+                        </tr>
+                       -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
 </body>
 </html>

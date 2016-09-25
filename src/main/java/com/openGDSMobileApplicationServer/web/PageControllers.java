@@ -15,4 +15,18 @@ public class PageControllers {
     String index() {
         return "index";
     }
+
+    @RequestMapping(value="/management")
+    String management() {return "management"; }
+
+    @RequestMapping(value="/original")
+    String original() {return "vis/original"; }
+
+    @RequestMapping(value="/chart")
+    String chart() {return "vis/chart"; }
+
+    @RequestMapping(value="/map")
+    String map() {return "vis/map"; }
+
+
 }
