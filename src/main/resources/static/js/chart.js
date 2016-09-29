@@ -300,7 +300,7 @@ $(function(){
                 $('#chartVis').empty();
 
                 var json = JSON.stringify(evt[0]);
-
+                console.log(evt);
                 var chart = new openGDSMobile.ChartVis(json, {
                     rootKey : dataKey,
                     labelKey : chartKey,
