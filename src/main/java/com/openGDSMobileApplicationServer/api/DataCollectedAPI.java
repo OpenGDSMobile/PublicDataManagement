@@ -44,7 +44,7 @@ public class DataCollectedAPI {
     @RequestMapping (method={RequestMethod.PUT})  //Management (Edit)
     public ResponseEntity<String> managementDataAPI(@RequestBody CollectVO collect) {
         Boolean result= dataCollectService.editCollected(collect);
-        if (result = true) {
+        if (result == true) {
             return new ResponseEntity("EDIT OK", HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.EXPECTATION_FAILED);
