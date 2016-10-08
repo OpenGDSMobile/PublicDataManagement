@@ -30,9 +30,6 @@ public class GeoServerManagementDAO {
     GeoServerRESTPublisher publisher;
     GeoServerRESTManager manager;
 
-    /*GeoServerRESTStoreManager storeManager;
-    GeoServerRESTStyleManager styleManager;*/
-
     /**
      * GeoServer Management DAO
      * @throws MalformedURLException
@@ -41,7 +38,7 @@ public class GeoServerManagementDAO {
         reader = new GeoServerRESTReader(RESTURL, RESTUSER, RESTRW);
         publisher = new GeoServerRESTPublisher(RESTURL, RESTUSER, RESTRW);
         manager = new GeoServerRESTManager(new URL(RESTURL), RESTUSER, RESTRW);
-        /*storeManager = new GeoServerREST*/
+
     }
 
     /**
@@ -73,7 +70,7 @@ public class GeoServerManagementDAO {
     public Boolean publishShpBasedFile(File zip,String workspace, String storeName, String epsg){
         try {
             return publisher.publishShp(workspace, storeName, zip.getName(), zip, epsg);
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             log.error(e.getMessage());
         }
         return false;

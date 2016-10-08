@@ -1,13 +1,10 @@
 package com.openGDSMobileApplicationServer.api;
 
-import com.openGDSMobileApplicationServer.service.PublicDataCollected;
-import com.openGDSMobileApplicationServer.service.impl.GeoServerManagementDAO;
-import com.openGDSMobileApplicationServer.service.impl.SeoulOpenDataCollectedService;
+
 import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.web.bind.annotation.RequestMapping;

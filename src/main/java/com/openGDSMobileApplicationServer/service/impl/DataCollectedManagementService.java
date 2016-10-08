@@ -51,10 +51,8 @@ public class DataCollectedManagementService implements DataCollectedManagement {
         searchMap.remove("status");
         changeDataMap.remove("status");
         if (searchResult != null) {
-            //for (String key : searchMap.keySet()) {
             for (Map.Entry<String, Object> entry : searchMap.entrySet()){
                 String key = entry.getKey();
-                //if (key.equals("time")){
                 if ("time".equals(key)){
                     if (collect.getTime() == 0) {
                         newDataMap.put(key, searchMap.get(key));
@@ -114,20 +112,18 @@ public class DataCollectedManagementService implements DataCollectedManagement {
                 resultMap.put(fields[i].getName(), fields[i].get(obj));
             }
             return resultMap;
-        } catch (IllegalAccessException e) {
+        } catch (Exception e) {
             log.error(e.getMessage());
         }
         return null;
     }
 
     public Object convertMaptoObject(Map map, Object objClass){
-        String keyAttribute = null;
         String setMethodString = "set";
-        String methodString = null;
         Iterator itr = map.keySet().iterator();
         while(itr.hasNext()){
-            keyAttribute = (String) itr.next();
-            methodString = setMethodString+keyAttribute.substring(0,1).toUpperCase()+keyAttribute.substring(1);
+            String keyAttribute = (String) itr.next();
+            String methodString = setMethodString+keyAttribute.substring(0,1).toUpperCase()+keyAttribute.substring(1);
             try {
                 Method[] methods = objClass.getClass().getDeclaredMethods();
                 for(int i=0;i<=methods.length-1;i++){
