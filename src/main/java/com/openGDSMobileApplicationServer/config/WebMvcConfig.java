@@ -1,5 +1,8 @@
 package com.openGDSMobileApplicationServer.config;
 
+import com.openGDSMobileApplicationServer.service.impl.MongoDBManagementDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
@@ -21,6 +24,9 @@ import java.util.Locale;
 @Configuration
 @EnableWebMvc
 public class WebMvcConfig extends WebMvcConfigurerAdapter{
+
+    Logger log = LoggerFactory.getLogger(WebMvcConfigurerAdapter.class);
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
         DefaultResourceLoader loader = new DefaultResourceLoader();
@@ -28,7 +34,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
             String CLASSPATH_STATIC_LOCATIONS =  loader.getResource("/static/").getURL().toString();
             registry.addResourceHandler("/static/**").addResourceLocations(CLASSPATH_STATIC_LOCATIONS);
         } catch (IOException e){
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 

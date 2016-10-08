@@ -85,15 +85,6 @@ public class DataCollectedManagementService implements DataCollectedManagement {
         return dao.updateDataCollect(newCollect);
     }
 
-
-/*
-    @Override
-    public Boolean editCollected(String name, Boolean status) {
-        CollectVO collect = new CollectVO(name, status);
-        return dao.updateStatusCollect(collect);
-    }
-*/
-
     @Override
     public List<CollectVO> allListCollected(){
         return dao.findAllCollect();
@@ -112,7 +103,7 @@ public class DataCollectedManagementService implements DataCollectedManagement {
     }
 
 
-    public static Map convertObjectToMap(Object obj) {
+    public Map convertObjectToMap(Object obj) {
         try{
             Field[] fields = obj.getClass().getDeclaredFields();
             Map resultMap = new HashMap();
@@ -122,12 +113,12 @@ public class DataCollectedManagementService implements DataCollectedManagement {
             }
             return resultMap;
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return null;
     }
 
-    public static Object convertMapToObject(Map map, Object objClass){
+    public Object convertMapToObject(Map map, Object objClass){
         String keyAttribute = null;
         String setMethodString = "set";
         String methodString = null;
@@ -143,13 +134,13 @@ public class DataCollectedManagementService implements DataCollectedManagement {
                     }
                 }
             } catch (SecurityException e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
             } catch (IllegalArgumentException e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
             } catch (InvocationTargetException e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
             }
         }
         return objClass;

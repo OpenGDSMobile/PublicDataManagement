@@ -66,9 +66,9 @@ public class SeoulOpenDataCollectedService extends QuartzJobBean implements Publ
             mongoDao.insertData(serviceInfo.getName(), dbObject);
 
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
 
 

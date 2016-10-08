@@ -31,6 +31,12 @@ public class DataCollectedAPI {
     DataCollectedManagement dataCollectService;
 
 
+    /**
+     *
+     * @api {POST} /api/Collected/
+     * @return
+     * @throws Exception
+     */
     @RequestMapping (method={RequestMethod.POST})
     public ResponseEntity<String> registerDataAPI(@RequestBody CollectVO collect) throws Exception {
         Boolean result = dataCollectService.insertCollected(collect);
@@ -55,20 +61,8 @@ public class DataCollectedAPI {
         return dataCollectService.allListCollected();
     }
 
-/*
-    @RequestMapping (value="/status", method={RequestMethod.PUT})  //Status Change (Start/Stop)
-    public ResponseEntity<String> statusChangeAPI(@RequestParam(value="name") String name,
-                                                  @RequestParam(value="status") Boolean status) {
-        Boolean result = dataCollectService.editCollected(name, status);
-        if (result = true) {
-            return new ResponseEntity("STATUS OK", HttpStatus.OK);
-        }
-        return new ResponseEntity(HttpStatus.EXPECTATION_FAILED);
-    }
-*/
-
     @RequestMapping (value="/{name}", method = {RequestMethod.GET})
-    public CollectVO queryNameData(@PathVariable String name) throws Exception {
+    public CollectVO queryNameData(@PathVariable String name) {
         return dataCollectService.selectOneCollected(name);
     }
 

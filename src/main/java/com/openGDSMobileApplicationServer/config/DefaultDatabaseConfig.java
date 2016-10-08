@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -15,6 +17,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.io.IOException;
 
@@ -32,27 +35,33 @@ import java.io.IOException;
 /*@MapperScan(value={"com.openGDSMobileApplicationServer.mapper"})*/
 public class DefaultDatabaseConfig{
 
+    Logger log = LoggerFactory.getLogger(DefaultDatabaseConfig.class);
     @Autowired
     private ApplicationContext applicationContext;
 
 
     @Bean(name = "MyBatis_PostgreSQL_DataSource")
     @ConfigurationProperties(prefix = "spring.datasource")
-    public DataSource getDataSource() throws IOException
+    public DataSource getDataSource()
     {
         return DataSourceBuilder.create().build();
     }
 
     @Bean(name = "MyBatis_PostgreSQL_SqlSessionFactory")
-    public SqlSessionFactory getSqlSessionFactory() throws Exception
-    {
-        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-        sqlSessionFactoryBean.setDataSource(getDataSource());
-        sqlSessionFactoryBean.setTypeAliasesPackage("com.openGDSMobileApplicationServer.valueObject");
-        sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis/config.xml"));
-        sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:mybatis/mapper/*.xml"));
-
-        return sqlSessionFactoryBean.getObject();
+    public SqlSessionFactory getSqlSessionFactory() {
+        try {
+            SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+            sqlSessionFactoryBean.setDataSource(getDataSource());
+            sqlSessionFactoryBean.setTypeAliasesPackage("com.openGDSMobileApplicationServer.valueObject");
+            sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis/config.xml"));
+            sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:mybatis/mapper/*.xml"));
+            return sqlSessionFactoryBean.getObject();
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+        return null;
     }
 
     @Bean(name = "MyBatis_PostgreSQL_SqlSessionTemplate")

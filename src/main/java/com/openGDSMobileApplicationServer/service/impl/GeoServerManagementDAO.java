@@ -23,8 +23,7 @@ import java.net.URL;
 public class GeoServerManagementDAO {
     Logger log = LoggerFactory.getLogger(GeoServerManagementDAO.class);
 
-    String RESTURL = "http://113.198.80.9:8080/geoserver";
-    //String RESTURL = "http://localhost:8080/geoserver";
+    String RESTURL = "http://localhost:8080/geoserver";
     String RESTUSER = "admin";
     String RESTRW = "geoserver";
 
@@ -53,7 +52,7 @@ public class GeoServerManagementDAO {
         try {
             return publisher.publishShp(workspace, storeName, zip.getName(), zip, epsg);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return false;
     }
