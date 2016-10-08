@@ -33,7 +33,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
             String CLASSPATH_STATIC_LOCATIONS =  loader.getResource("/static/").getURL().toString();
             registry.addResourceHandler("/static/**").addResourceLocations(CLASSPATH_STATIC_LOCATIONS);
         } catch (Exception e){
-            log.error(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 

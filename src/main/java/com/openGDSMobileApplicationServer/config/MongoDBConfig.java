@@ -23,7 +23,7 @@ public class MongoDBConfig {
             //mongoTemplate = new MongoTemplate(new MongoClient("127.0.0.1"), "opengdsmobiledata");
             mongoTemplate = new MongoTemplate(new MongoClient(System.getProperty("myapplication.ip")), "opengdsmobiledata");
         } catch (Exception e) {
-            log.error(e.getMessage());
+            throw new RuntimeException(e);
         }
 
         return mongoTemplate;

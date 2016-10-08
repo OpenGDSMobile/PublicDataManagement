@@ -41,7 +41,7 @@ public class SchedulerAPI {
         try {
             schedulerFactory.getScheduler().deleteJob(JobKey.jobKey("test"));
         } catch (Exception e) {
-            log.error(e.getMessage());
+            throw new RuntimeException(e);
         }
         return null;
     }

@@ -113,9 +113,8 @@ public class DataCollectedManagementService implements DataCollectedManagement {
             }
             return resultMap;
         } catch (Exception e) {
-            log.error(e.getMessage());
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     public Object convertMaptoObject(Map map, Object objClass){
@@ -132,7 +131,7 @@ public class DataCollectedManagementService implements DataCollectedManagement {
                     }
                 }
             } catch (Exception e) {
-                log.error(e.getMessage());
+                throw new RuntimeException(e);
             }
         }
         return objClass;

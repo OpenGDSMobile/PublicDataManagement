@@ -57,9 +57,8 @@ public class DefaultDatabaseConfig{
             sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:mybatis/mapper/*.xml"));
             return sqlSessionFactoryBean.getObject();
         } catch (Exception e) {
-            log.error(e.getMessage());
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     @Bean(name = "MyBatis_PostgreSQL_SqlSessionTemplate")
@@ -67,17 +66,5 @@ public class DefaultDatabaseConfig{
     {
         return new SqlSessionTemplate(getSqlSessionFactory());
     }
-
-
-
-/*
-
-    @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception{
-        SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource);
-        return sessionFactory.getObject();
-    }
-*/
 
 }

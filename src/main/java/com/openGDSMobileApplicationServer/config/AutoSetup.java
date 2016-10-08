@@ -55,7 +55,7 @@ public class AutoSetup implements ApplicationListener<ContextRefreshedEvent>{
                 }
 
             } catch (Exception e) {
-                log.error(e.getMessage());
+                throw new RuntimeException(e);
             }
         }
     }

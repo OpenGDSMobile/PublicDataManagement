@@ -35,10 +35,4 @@ public class QuartzConfig {
         scheduler.setJobFactory(jobFactory());
         return scheduler;
     }
-    /*
-    @Bean
-    public Scheduler scheduler(SchedulerFactoryBean schedulerFactoryBean) {
-        return schedulerFactoryBean.getObject();
-    }
-    */
 }

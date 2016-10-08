@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Service;
- 
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -59,7 +59,7 @@ public class SeoulOpenDataCollectedService extends QuartzJobBean implements Publ
             mongoDao.insertData(serviceInfo.getName(), dbObject);
 
         } catch (Exception e) {
-            log.error(e.getMessage());
+            throw new RuntimeException(e);
         }
 
 

@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -71,9 +70,8 @@ public class GeoServerManagementDAO {
         try {
             return publisher.publishShp(workspace, storeName, zip.getName(), zip, epsg);
         } catch (Exception e) {
-            log.error(e.getMessage());
+            throw new RuntimeException(e);
         }
-        return false;
     }
 
     /**

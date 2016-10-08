@@ -36,8 +36,8 @@ public class SeoulOpenDataScheduler implements SchedulerManagement {
         try {
 
             schedulerFactory.getScheduler().scheduleJob(job, trigger);
-        } catch (SchedulerException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -46,8 +46,8 @@ public class SeoulOpenDataScheduler implements SchedulerManagement {
 
         try {
             schedulerFactory.getScheduler().resumeJob(JobKey.jobKey(key));
-        } catch (SchedulerException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -60,8 +60,8 @@ public class SeoulOpenDataScheduler implements SchedulerManagement {
             /*schedulerFactory.getScheduler().unscheduleJob(TriggerKey.triggerKey(key));*/
 
 
-        } catch (SchedulerException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -74,8 +74,8 @@ public class SeoulOpenDataScheduler implements SchedulerManagement {
     public void deleteSchedule(String key){
         try {
             schedulerFactory.getScheduler().deleteJob(JobKey.jobKey(key));
-        } catch (SchedulerException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -87,8 +87,8 @@ public class SeoulOpenDataScheduler implements SchedulerManagement {
 
             Trigger newTrigger = tb.withSchedule(simpleSchedule().withIntervalInMinutes(time).repeatForever()).build();
             schedulerFactory.getScheduler().rescheduleJob(oldTrigger.getKey(), newTrigger);
-        } catch (SchedulerException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
     }
