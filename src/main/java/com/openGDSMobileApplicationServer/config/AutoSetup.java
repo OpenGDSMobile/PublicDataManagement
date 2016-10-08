@@ -1,9 +1,12 @@
 package com.openGDSMobileApplicationServer.config;
 
+import com.openGDSMobileApplicationServer.api.SchedulerAPI;
 import com.openGDSMobileApplicationServer.service.impl.DataCollectedManagementDAO;
 import com.openGDSMobileApplicationServer.service.impl.SeoulOpenDataCollectedService;
 import com.openGDSMobileApplicationServer.valueObject.CollectVO;
 import org.quartz.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -19,6 +22,7 @@ import java.util.List;
  */
 @Component
 public class AutoSetup implements ApplicationListener<ContextRefreshedEvent>{
+    Logger log = LoggerFactory.getLogger(AutoSetup.class);
 
     @Autowired
     private SchedulerFactoryBean schedulerFactory;
@@ -50,8 +54,8 @@ public class AutoSetup implements ApplicationListener<ContextRefreshedEvent>{
                     schedulerFactory.getScheduler().pauseJob(jobKey);
                 }
 
-            } catch (SchedulerException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                log.error(e.getMessage());
             }
         }
     }

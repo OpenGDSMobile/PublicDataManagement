@@ -133,13 +133,7 @@ public class DataCollectedManagementService implements DataCollectedManagement {
                         methods[i].invoke(objClass, map.get(keyAttribute));
                     }
                 }
-            } catch (SecurityException e) {
-                log.error(e.getMessage());
-            } catch (IllegalAccessException e) {
-                log.error(e.getMessage());
-            } catch (IllegalArgumentException e) {
-                log.error(e.getMessage());
-            } catch (InvocationTargetException e) {
+            } catch (Exception e) {
                 log.error(e.getMessage());
             }
         }

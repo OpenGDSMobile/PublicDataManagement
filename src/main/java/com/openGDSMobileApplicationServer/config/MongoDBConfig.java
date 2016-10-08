@@ -22,7 +22,7 @@ public class MongoDBConfig {
         try {
             //mongoTemplate = new MongoTemplate(new MongoClient("127.0.0.1"), "opengdsmobiledata");
             mongoTemplate = new MongoTemplate(new MongoClient(System.getProperty("myapplication.ip")), "opengdsmobiledata");
-        } catch (UnknownHostException e) {
+        } catch (Exception e) {
             log.error(e.getMessage());
         }
 

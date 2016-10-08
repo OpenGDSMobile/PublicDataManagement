@@ -38,7 +38,7 @@ public class DataCollectedAPI {
      * @throws Exception
      */
     @RequestMapping (method={RequestMethod.POST})
-    public ResponseEntity<String> registerDataAPI(@RequestBody CollectVO collect) throws Exception {
+    public ResponseEntity<String> registerDataAPI(@RequestBody CollectVO collect) {
         Boolean result = dataCollectService.insertCollected(collect);
         if (result == true) {
             return new ResponseEntity(HttpStatus.CREATED);
@@ -57,7 +57,7 @@ public class DataCollectedAPI {
     }
 
     @RequestMapping (method = {RequestMethod.GET})
-    public List<CollectVO> queryAllData() throws Exception {
+    public List<CollectVO> queryAllData() {
         return dataCollectService.allListCollected();
     }
 
@@ -69,7 +69,7 @@ public class DataCollectedAPI {
     @RequestMapping (value="/{name}", method={RequestMethod.DELETE})
     public ResponseEntity<String> deleteData(@PathVariable String name) {
         Boolean result = dataCollectService.deleteCollected(name);
-        if (result = true) {
+        if (result == true) {
             return new ResponseEntity("DELETE OK", HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.EXPECTATION_FAILED);

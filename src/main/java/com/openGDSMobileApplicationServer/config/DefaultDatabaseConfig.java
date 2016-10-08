@@ -56,8 +56,6 @@ public class DefaultDatabaseConfig{
             sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis/config.xml"));
             sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:mybatis/mapper/*.xml"));
             return sqlSessionFactoryBean.getObject();
-        } catch (IOException e) {
-            log.error(e.getMessage());
         } catch (Exception e) {
             log.error(e.getMessage());
         }

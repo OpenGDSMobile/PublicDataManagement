@@ -1,8 +1,11 @@
 package com.openGDSMobileApplicationServer.api;
 
 import com.openGDSMobileApplicationServer.service.PublicDataCollected;
+import com.openGDSMobileApplicationServer.service.impl.GeoServerManagementDAO;
 import com.openGDSMobileApplicationServer.service.impl.SeoulOpenDataCollectedService;
 import org.quartz.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/Scheduler")
 public class SchedulerAPI {
+    Logger log = LoggerFactory.getLogger(SchedulerAPI.class);
 
     @Autowired
     private SchedulerFactoryBean schedulerFactory;
@@ -39,8 +43,8 @@ public class SchedulerAPI {
     public ResponseEntity<String> deleteScheduler(){
         try {
             schedulerFactory.getScheduler().deleteJob(JobKey.jobKey("test"));
-        } catch (SchedulerException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            log.error(e.getMessage());
         }
         return null;
     }
