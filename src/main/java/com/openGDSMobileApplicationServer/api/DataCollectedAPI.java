@@ -1,15 +1,10 @@
 package com.openGDSMobileApplicationServer.api;
 
 import com.openGDSMobileApplicationServer.service.DataCollectedManagement;
-import com.openGDSMobileApplicationServer.service.PublicDataCollected;
 import com.openGDSMobileApplicationServer.valueObject.CollectVO;
-import org.quartz.Job;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,9 +28,8 @@ public class DataCollectedAPI {
 
     /**
      *
-     * @api {POST} /api/Collected/
+     * @param collect
      * @return
-     * @throws Exception
      */
     @RequestMapping (method={RequestMethod.POST})
     public ResponseEntity<String> registerDataAPI(@RequestBody CollectVO collect) {
@@ -46,7 +40,11 @@ public class DataCollectedAPI {
         return new ResponseEntity(HttpStatus.EXPECTATION_FAILED);
     }
 
-
+    /**
+     *
+     * @param collect
+     * @return
+     */
     @RequestMapping (method={RequestMethod.PUT})  //Management (Edit)
     public ResponseEntity<String> managementDataAPI(@RequestBody CollectVO collect) {
         Boolean result= dataCollectService.editCollected(collect);
@@ -56,16 +54,30 @@ public class DataCollectedAPI {
         return new ResponseEntity(HttpStatus.EXPECTATION_FAILED);
     }
 
+    /**
+     *
+     * @return
+     */
     @RequestMapping (method = {RequestMethod.GET})
     public List<CollectVO> queryAllData() {
         return dataCollectService.allListCollected();
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     @RequestMapping (value="/{name}", method = {RequestMethod.GET})
     public CollectVO queryNameData(@PathVariable String name) {
         return dataCollectService.selectOneCollected(name);
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     @RequestMapping (value="/{name}", method={RequestMethod.DELETE})
     public ResponseEntity<String> deleteData(@PathVariable String name) {
         Boolean result = dataCollectService.deleteCollected(name);
@@ -74,11 +86,4 @@ public class DataCollectedAPI {
         }
         return new ResponseEntity(HttpStatus.EXPECTATION_FAILED);
     }
-/*
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handleCollectNotFound(){
-        return "Not Page Error";
-    }
-    */
 }

@@ -5,13 +5,11 @@ import com.mongodb.util.JSON;
 import com.openGDSMobileApplicationServer.service.PublicDataCollected;
 import com.openGDSMobileApplicationServer.valueObject.CollectVO;
 import org.json.JSONObject;
-import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +17,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 /**
  * Created by intruder on 16. 8. 1.
@@ -45,10 +42,10 @@ public class SeoulOpenDataCollectedService extends QuartzJobBean implements Publ
 
         CollectVO serviceInfo = dao.findOneCollect(name);
         serviceURL = serviceInfo.getEp() + serviceInfo.getKeys();
-        if (serviceInfo.getName().equals("TimeAverageAirQuality")) {
+        if ("TimeAverageAirQuality".equals(serviceInfo.getName())) {
             String curTime = this.getyyyyMMddHH00();
             serviceURL = serviceURL + curTime;
-        } else if (serviceInfo.getName().equals("WPOSInformation")) {
+        } else if ("WPOSInformation".equals(serviceInfo.getName())) {
             String prevTime = this.getPrevyyyyMMdd();
             serviceURL = serviceURL + prevTime;
         }
@@ -58,16 +55,12 @@ public class SeoulOpenDataCollectedService extends QuartzJobBean implements Publ
             resultObj = resultObj.getJSONObject(serviceInfo.getName());
             resultObj.put("saveTime", this.getyyyyMMddHHMM());
 
-            //log.info(resultObj.toString());
-
             mongoDao.createCollection(serviceInfo.getName(), "saveTime");
             DBObject dbObject = (DBObject) JSON.parse(resultObj.toString());
 
             mongoDao.insertData(serviceInfo.getName(), dbObject);
 
-        } catch (URISyntaxException e) {
-            log.error(e.getMessage());
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.error(e.getMessage());
         }
 
@@ -75,6 +68,11 @@ public class SeoulOpenDataCollectedService extends QuartzJobBean implements Publ
         return null;
     }
 
+
+    /**
+     * getPrevyyyyMMdd
+     * @return String "YYYYMMDD"
+     */
     public String getPrevyyyyMMdd() {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, -1);
@@ -82,11 +80,20 @@ public class SeoulOpenDataCollectedService extends QuartzJobBean implements Publ
         return dateFormat.format(calendar.getTime());
     }
 
+    /**
+     * getyyyyMMddHHMM
+     * @return String yyyyMMddHHmm
+     */
     public String getyyyyMMddHHMM() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");
         return dateFormat.format(calendar.getTime());
     }
+
+    /**
+     * getyyyyMMddHH00
+     * @return String yyyyMMddHH00
+     */
     public String getyyyyMMddHH00() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");

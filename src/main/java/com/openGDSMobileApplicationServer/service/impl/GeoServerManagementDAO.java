@@ -1,10 +1,9 @@
 package com.openGDSMobileApplicationServer.service.impl;
 
-import com.openGDSMobileApplicationServer.service.DataCollectedManagement;
+
 import it.geosolutions.geoserver.rest.GeoServerRESTManager;
 import it.geosolutions.geoserver.rest.GeoServerRESTPublisher;
 import it.geosolutions.geoserver.rest.GeoServerRESTReader;
-import it.geosolutions.geoserver.rest.decoder.RESTDataStore;
 import it.geosolutions.geoserver.rest.decoder.RESTFeatureTypeList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,9 +22,9 @@ import java.net.URL;
 public class GeoServerManagementDAO {
     Logger log = LoggerFactory.getLogger(GeoServerManagementDAO.class);
 
-    String RESTURL = "http://localhost:8080/geoserver";
-    String RESTUSER = "admin";
-    String RESTRW = "geoserver";
+    static String RESTURL = "http://localhost:8080/geoserver";
+    static String RESTUSER = "admin";
+    static String RESTRW = "geoserver";
 
     GeoServerRESTReader reader;
     GeoServerRESTPublisher publisher;
@@ -34,6 +33,10 @@ public class GeoServerManagementDAO {
     /*GeoServerRESTStoreManager storeManager;
     GeoServerRESTStyleManager styleManager;*/
 
+    /**
+     * GeoServer Management DAO
+     * @throws MalformedURLException
+     */
     public GeoServerManagementDAO() throws MalformedURLException {
         reader = new GeoServerRESTReader(RESTURL, RESTUSER, RESTRW);
         publisher = new GeoServerRESTPublisher(RESTURL, RESTUSER, RESTRW);
@@ -41,13 +44,32 @@ public class GeoServerManagementDAO {
         /*storeManager = new GeoServerREST*/
     }
 
+    /**
+     * createWorkspace
+     * @param name : workspace name
+     * @return
+     */
     public Boolean createWorkspace(String name) {
         return publisher.createWorkspace(name, URI.create("http://" + name + ".org"));
     }
+
+    /**
+     * createStyle
+     * @param file : style file
+     * @return
+     */
     public Boolean createStyle(File file){
         return publisher.publishStyle(file);
     }
 
+    /**
+     * publishShpBasedFile
+     * @param zip : compress shpfile
+     * @param workspace : import workspace
+     * @param storeName : import store name
+     * @param epsg : file EPSG number
+     * @return Boolean
+     */
     public Boolean publishShpBasedFile(File zip,String workspace, String storeName, String epsg){
         try {
             return publisher.publishShp(workspace, storeName, zip.getName(), zip, epsg);
@@ -56,6 +78,12 @@ public class GeoServerManagementDAO {
         }
         return false;
     }
+
+    /**
+     * getWSLayers
+     * @param workspace : workspace name
+     * @return Object : layer list
+     */
     public Object getWSLayers(String workspace){
         RESTFeatureTypeList list = reader.getFeatureTypes(workspace);
         return list;
