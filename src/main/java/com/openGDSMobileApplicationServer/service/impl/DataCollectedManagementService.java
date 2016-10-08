@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
@@ -52,8 +51,11 @@ public class DataCollectedManagementService implements DataCollectedManagement {
         searchMap.remove("status");
         changeDataMap.remove("status");
         if (searchResult != null) {
-            for (String key : searchMap.keySet()) {
-                if (key.equals("time")){
+            //for (String key : searchMap.keySet()) {
+            for (Map.Entry<String, Object> entry : searchMap.entrySet()){
+                String key = entry.getKey();
+                //if (key.equals("time")){
+                if ("time".equals(key)){
                     if (collect.getTime() == 0) {
                         newDataMap.put(key, searchMap.get(key));
                     } else {
@@ -68,7 +70,7 @@ public class DataCollectedManagementService implements DataCollectedManagement {
                 }
             }
         }
-        newCollect = (CollectVO) this.convertMapToObject(newDataMap, newCollect);
+        newCollect = (CollectVO) this.convertMaptoObject(newDataMap, newCollect);
         newCollect.setStatus(changeStatus);
 
         if (searchResult.isStatus() != collect.isStatus()) {
@@ -118,7 +120,7 @@ public class DataCollectedManagementService implements DataCollectedManagement {
         return null;
     }
 
-    public Object convertMapToObject(Map map, Object objClass){
+    public Object convertMaptoObject(Map map, Object objClass){
         String keyAttribute = null;
         String setMethodString = "set";
         String methodString = null;

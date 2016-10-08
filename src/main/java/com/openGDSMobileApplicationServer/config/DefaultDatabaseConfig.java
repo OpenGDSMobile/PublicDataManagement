@@ -63,7 +63,7 @@ public class DefaultDatabaseConfig{
     }
 
     @Bean(name = "MyBatis_PostgreSQL_SqlSessionTemplate")
-    public SqlSessionTemplate getSqlSessionTemplate() throws Exception
+    public SqlSessionTemplate getSqlSessionTemplate()
     {
         return new SqlSessionTemplate(getSqlSessionFactory());
     }
