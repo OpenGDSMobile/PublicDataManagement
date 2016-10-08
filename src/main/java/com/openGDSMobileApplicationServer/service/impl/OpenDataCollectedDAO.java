@@ -29,17 +29,6 @@ public class OpenDataCollectedDAO {
         JSONTokener tokener = new JSONTokener(is);
         JSONObject obj = new JSONObject(tokener);
         return obj;
-
-/*
-        if (testTokener instanceof JSONObject) {
-        //    JSONObject obj = new JSONObject(tokener);
-         //   return obj;
-        } else {
-            JSONTokener jsonTokener = new JSONTokener(is);
-            JSONArray array = new JSONArray(jsonTokener);
-            //obj.put("row", array);
-        }
-*/
     }
 
     public Document getOpenDataXML(String path) throws IOException, JDOMException {

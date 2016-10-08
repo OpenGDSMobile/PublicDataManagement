@@ -32,7 +32,6 @@ public class SeoulOpenDataScheduler implements SchedulerManagement {
         Trigger trigger = TriggerBuilder.newTrigger()
                 .withIdentity(triggerKey)
                 .withSchedule(simpleSchedule().withIntervalInMinutes(time).repeatForever()).build();
-                /*.withSchedule(CronScheduleBuilder.cronSchedule(cron)).build();*/
 
         try {
 
