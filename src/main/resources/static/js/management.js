@@ -82,7 +82,8 @@ $(function() {
             time : $('#modalTime').val(),
             keys : $('#modalKeys').val(),
             comment : $('#modalComment').val(),
-            status : $('#modalStatus').val()
+            status : $('#modalStatus').val(),
+            type : $('#modalType').val()
         };
         if (text != 'Edit') {
             type = 'POST';
@@ -129,6 +130,7 @@ $(function() {
                     modal.find('#modalKeys').val(evt.keys);
                     modal.find('#modalComment').val(evt.comment);
                     modal.find('#modalStatus').val(evt.status.toString());
+                    modal.find('#modalType').val(evt.type);
                 },
                 error : function (evt) {
                     humane.log('Error Loading Collected Public Data. Please, confirm database connect.',{

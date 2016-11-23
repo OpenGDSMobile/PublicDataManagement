@@ -43,6 +43,7 @@ public class DataCollectedManagementService implements DataCollectedManagement {
     @Override
     public Boolean editCollected(CollectVO collect) {
         CollectVO searchResult = this.selectOneCollected(collect.getName());
+        log.debug(collect.toString());
         Map<String, Object> searchMap = convertObjectToMap(searchResult);
         Map<String, Object> changeDataMap = convertObjectToMap(collect);
         Map<String, Object> newDataMap = new HashMap<>();

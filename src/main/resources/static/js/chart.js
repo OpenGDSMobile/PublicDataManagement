@@ -152,10 +152,6 @@ function searchKeyEvt(){
         }
 
     });
-
-
-
-
 };
 
 $(function(){

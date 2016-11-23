@@ -8,9 +8,12 @@
     <link rel="stylesheet" th:href="@{/static/css/bootstrap/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/humane/libnotify.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/c3.min.css}"/>
 
     <script th:src="@{/static/js/jquery/jquery.min.js}"/>
     <script th:src="@{/static/js/bootstrap/bootstrap.min.js}"/>
+    <script th:src="@{/static/js/d3/d3.min.js}"/>
+    <script th:src="@{/static/js/d3/c3.min.js}"/>
 
 
     <script th:src="@{/static/js/humane/humane.min.js}"/>
@@ -90,8 +93,8 @@
     <div class="col-sm-9 col-sm-offset-2 col-lg-10 col-lg-offset-2 main">
         <div class="row" style="padding-bottom: 20px;">
             <h1 th:text="#{main.title}">Status of open data collected</h1>
-        </div>
-        <div class="row"  style="padding-bottom: 50px;">
+        </div><!--
+        <div class="row" style="padding-bottom: 50px;">
             <div>
                 <span th:text="#{main.reg}">Registered open data</span> : <span id="totalCollected" style="margin-right:10px;"></span>
 
@@ -99,7 +102,10 @@
 
                 <span th:text="#{main.stop}">Number of non-collecting data</span> : <span id="falseCollected"></span>
             </div>
-
+        </div>-->
+        <div class="row" style="padding-bottom: 50px;">
+            <div id="dataStat" style="float :left; width:45%; margin-left:10px;"></div>
+            <div id="dataTypeStat" style="float :left; width:45%;"></div>
         </div>
         <div class="row">
             <div class="table-responsive">
@@ -114,6 +120,7 @@
                             <th th:text="#{main.table.time}">Time(unit: minute)</th>
                             <th th:text="#{main.table.remark}">Remark</th>
                             <th th:text="#{main.table.status}">Collecting stage</th>
+                            <th th:text="#{main.table.requestType}">Request type</th>
                         </tr>
                     </thead>
                     <tbody>

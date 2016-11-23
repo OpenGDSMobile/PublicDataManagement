@@ -14,6 +14,7 @@ public class CollectVO{
     boolean status = false;
     String comment ="";
     String keys ="";
+    String type ="";
 
     public CollectVO() {
     }
@@ -27,6 +28,7 @@ public class CollectVO{
         this.status = true;
         this.comment = "";
         this.keys = "";
+        this.type = "";
     }
     public CollectVO(String name, Boolean status) {
         this.name = name;
@@ -34,7 +36,7 @@ public class CollectVO{
     }
 
     public CollectVO(String name, String provider, String url, String ep, int time,
-                     boolean status, String comment, String keys) {
+                     boolean status, String comment, String keys, String type) {
         this.name = name;
         this.provider = provider;
         this.url = url;
@@ -43,6 +45,7 @@ public class CollectVO{
         this.status = status;
         this.comment = comment;
         this.keys = keys;
+        this.type = type;
     }
 
     public String getName() {
@@ -107,6 +110,15 @@ public class CollectVO{
 
     public void setKeys(String keys) {
         this.keys = keys;
+    }
+
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
