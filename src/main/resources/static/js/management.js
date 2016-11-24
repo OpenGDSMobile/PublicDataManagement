@@ -13,7 +13,7 @@ function collectedListRequest() {
             $.each(evt, function(key, value) {
                 var indexTableTag = $('#managementTable > tbody:last');
                 indexTableTag.append('<tr>' +
-                    '<td>' + (value.name) + '</td>' +
+                    '<td>' + (value.visname) + '</td>' +
                     '<td>' + (value.provider) + '</td>' +
                     /*'<td>' + (value.url) + '</td>' +*/
                     '<td>' + (value.ep) + '</td>' +
@@ -76,6 +76,7 @@ $(function() {
         var type = 'PUT';
         var requestData = {
             name : $('#modalName').val(),
+            visname : $('#modalVisName').val(),
             provider : $('#modalProvider').val(),
             url : $('#modalUrl').val(),
             ep : $('#modalEp').val(),
@@ -115,7 +116,6 @@ $(function() {
         var modal = $(this);
         modal.find('.modal-title').text(header);
         modal.find('.btn-save').text(btnText);
-        console.log(name);
         if (name !== null) {
             $.ajax({
                 url : contextRoot + "api/Collected/" + name,
@@ -123,6 +123,7 @@ $(function() {
                 success : function (evt){
                     console.log(evt);
                     modal.find('#modalName').val(evt.name);
+                    modal.find('#modalVisName').val(evt.visname);
                     modal.find('#modalProvider').val(evt.provider);
                     modal.find('#modalUrl').val(evt.url);
                     modal.find('#modalEp').val(evt.ep);

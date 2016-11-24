@@ -22,7 +22,7 @@ function collectedListRequest() {
                 }
                 indexTableTag.append('<tr>' +
                     '<td>' + (key + 1) + '</td>' +
-                    '<td>' + (value.name) + '</td>' +
+                    '<td>' + (value.visname) + '</td>' +
                     '<td>' + (value.provider) + '</td>' +
                     '<td>' + (value.url) + '</td>' +
                     /*'<td>' + (value.ep) + '</td>' +*/

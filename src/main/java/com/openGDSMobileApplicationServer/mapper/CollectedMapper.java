@@ -18,8 +18,8 @@ public interface CollectedMapper {
      * @param collect
      * @return
      */
-    @Insert("INSERT INTO \"OPENDATACOLLECT\"(\"NAME\", \"PROVIDER\", \"URL\", \"EP\", \"TIME\", \"STATUS\", \"COMMENT\", \"KEYS\", \"TYPE\") " +
-            "VALUES(#{name}, #{provider}, #{url}, #{ep}, #{time}, #{status}, #{comment}, #{keys}, #{type})")
+    @Insert("INSERT INTO \"OPENDATACOLLECT\"(\"NAME\", \"PROVIDER\", \"URL\", \"EP\", \"TIME\", \"STATUS\", \"COMMENT\", \"KEYS\", \"TYPE\", \"VISNAME\") " +
+            "VALUES(#{name}, #{provider}, #{url}, #{ep}, #{time}, #{status}, #{comment}, #{keys}, #{type}, #{visname})")
     int insertCollected(CollectVO collect);
 
     /**
